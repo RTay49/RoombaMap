@@ -24,7 +24,7 @@ public class Simulator
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
 
     // List of animals in the field.
-    private List<Animal> animals;
+    private List<Location> locations;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -54,16 +54,17 @@ public class Simulator
             width = DEFAULT_WIDTH;
         }
         
-        animals = new ArrayList<Animal>();
+        locations = new ArrayList<Location>();
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        view.setColor(Rabbit.class, Color.ORANGE);
-        view.setColor(Fox.class, Color.BLUE);
+        view.setColor(FreeSpace.class, Color.GREEN);
+        view.setColor(Fox.class, Color.RED);
         
         // Setup a valid starting point.
         reset();
+       //populate();
     }
     
     /**
@@ -97,20 +98,16 @@ public class Simulator
         step++;
 
         // Provide space for newborn animals.
-        List<Animal> newAnimals = new ArrayList<Animal>();        
+        List<Location> newLocations = new ArrayList<Location>();        
         // Let all rabbits act.
-        for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
-            Animal animal = it.next();
-            animal.act(newAnimals);
-            if(! animal.isAlive()) {
-                it.remove();
-            }
-        }
+      
                
         // Add the newly born foxes and rabbits to the main lists.
-        animals.addAll(newAnimals);
+        locations.addAll(newLocations);
 
         view.showStatus(step, field);
+        
+        
     }
         
     /**
@@ -119,8 +116,8 @@ public class Simulator
     public void reset()
     {
         step = 0;
-        animals.clear();
-        populate();
+        locations.clear();
+        //populate();
         
         // Show the starting state in the view.
         view.showStatus(step, field);
@@ -129,24 +126,19 @@ public class Simulator
     /**
      * Randomly populate the field with foxes and rabbits.
      */
-    private void populate()
-    {
-        Random rand = Randomizer.getRandom();
-        field.clear();
-        for(int row = 0; row < field.getDepth(); row++) {
-            for(int col = 0; col < field.getWidth(); col++) {
-                if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location);
-                    animals.add(fox);
-                }
-                else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Rabbit rabbit = new Rabbit(true, field, location);
-                    animals.add(rabbit);
-                }
-                // else leave the location empty.
-            }
-        }
-    }
+    
+    
+    
+    
+
+    
+    public void addFreeSpace(int row, int col){
+    	
+   	 FreeSpace freespace = new FreeSpace(row, col);
+        locations.add(freespace);
+   	
+   }
+    
+    
+    
 }

@@ -22,9 +22,9 @@ public class SimulatorView extends JFrame
     // Color used for objects that have no defined color.
     private static final Color UNKNOWN_COLOR = Color.gray;
 
-    private final String Time_PREFIX = "Time: ";
-    private final String Location_PREFIX = "Current Location: ";
-    private JLabel timeLabel, location;
+    private final String STEP_PREFIX = "Step: ";
+    private final String POPULATION_PREFIX = "Population: ";
+    private JLabel stepLabel, population;
     private FieldView fieldView;
     
     // A map for storing colors for participants in the simulation
@@ -42,18 +42,18 @@ public class SimulatorView extends JFrame
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();
 
-        setTitle("Room-ba-map");
-        timeLabel = new JLabel(Time_PREFIX, JLabel.CENTER);
-        location = new JLabel(Location_PREFIX, JLabel.CENTER);
+        setTitle("Roomb-a-map");
+        stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
+        population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         
         setLocation(100, 50);
         
         fieldView = new FieldView(height, width);
 
         Container contents = getContentPane();
-        contents.add(timeLabel, BorderLayout.NORTH);
+        contents.add(stepLabel, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
-        contents.add(location, BorderLayout.SOUTH);
+        contents.add(population, BorderLayout.SOUTH);
         pack();
         setVisible(true);
     }
@@ -63,13 +63,17 @@ public class SimulatorView extends JFrame
      * @param animalClass The animal's Class object.
      * @param color The color to be used for the given class.
      */
+    public void setColor(Class locationClass, Color color)
+    {
+        colors.put(locationClass, color);
+    }
 
     /**
      * @return The color to be used for a given class of animal.
      */
-    private Color getColor(Class animalClass)
+    private Color getColor(Class locationClass)
     {
-        Color col = colors.get(animalClass);
+        Color col = colors.get(locationClass);
         if(col == null) {
             // no color defined for this class
             return UNKNOWN_COLOR;
@@ -90,17 +94,17 @@ public class SimulatorView extends JFrame
             setVisible(true);
         }
             
-        stepLabel.setText(Time_PREFIX + step);
+        stepLabel.setText(STEP_PREFIX + step);
         stats.reset();
         
         fieldView.preparePaint();
 
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
-                Object animal = field.getObjectAt(row, col);
-                if(animal != null) {
-                    stats.incrementCount(animal.getClass());
-                    fieldView.drawMark(col, row, getColor(animal.getClass()));
+                Object location = field.getObjectAt(row, col);
+                if(location != null) {
+                    stats.incrementCount(location.getClass());
+                    fieldView.drawMark(col, row, getColor(location.getClass()));
                 }
                 else {
                     fieldView.drawMark(col, row, EMPTY_COLOR);
@@ -109,7 +113,7 @@ public class SimulatorView extends JFrame
         }
         stats.countFinished();
 
-        population.setText(Location_PREFIX + stats.getPopulationDetails(field));
+        population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
         fieldView.repaint();
     }
 
