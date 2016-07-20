@@ -1,21 +1,30 @@
 
 public abstract class Place {
 	
- private RMap field;
+ private RMap rMap;
  
  private Location location;
  
- public Place(RMap field, Location location){
+ public Place(RMap rMap, Location location){
  
- this.field = field;
+ this.rMap = rMap;
  setLocation(location);
 }
  protected void setLocation(Location newLocation)
  {
      if(location != null) {
-         field.clear(location);
+    	 rMap.clear(location);
      }
      location = newLocation;
-     field.place(this, newLocation);
+     rMap.place(this, newLocation);
  }
+public RMap getrMap() {
+	return rMap;
+}
+public void setrMap(RMap rMap) {
+	this.rMap = rMap;
+}
+public Location getLocation() {
+	return location;
+}
 }

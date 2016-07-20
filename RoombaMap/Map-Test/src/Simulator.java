@@ -15,22 +15,23 @@ public class Simulator
 {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
-    private static final int DEFAULT_WIDTH = 120;
+    private static final int DEFAULT_WIDTH = 125;
     // The default depth of the grid.
-    private static final int DEFAULT_DEPTH = 80;
-    // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.02;
-    // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
+    private static final int DEFAULT_DEPTH = 85;
+    
 
-    // List of animals in the field.
+    
+    private int width;
+    private int depth;
+    // List of places on the map.
     private List<Place> places;
-    // The current state of the field.
+    // The current state of the map.
     private RMap rMap;
     // The current step of the simulation.
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
+    
     
     /**
      * Construct a simulation field with default size.
@@ -53,6 +54,13 @@ public class Simulator
             depth = DEFAULT_DEPTH;
             width = DEFAULT_WIDTH;
         }
+        else if((width & 1) == 0 || (width & 1) == 0){
+            System.out.println("The dimensions must be odd numbers.");
+            System.out.println("Using default values.");
+            depth = DEFAULT_DEPTH;
+            width = DEFAULT_WIDTH;
+        	
+        }
         
         places = new ArrayList<Place>();
         rMap = new RMap(depth, width);
@@ -66,52 +74,7 @@ public class Simulator
        //populate();
     }
     
-    /**
-     * Run the simulation from its current state for a reasonably long period,
-     * (4000 steps).
-     */
-    public void runLongSimulation()
-    {
-        simulate(4000);
-    }
-    
-    /**
-     * Run the simulation from its current state for the given number of steps.
-     * Stop before the given number of steps if it ceases to be viable.
-     * @param numSteps The number of steps to run for.
-     */
-    public void simulate(int numSteps)
-    {
-        for(int step = 1; step <= numSteps && view.isViable(rMap); step++) {
-            simulateOneStep();
-        }
-    }
-    
-    /**
-     * Run the simulation from its current state for a single step.
-     * Iterate over the whole field updating the state of each
-     * fox and rabbit.
-     */
-    public void simulateOneStep()
-    {
-        step++;
-
-        // Provide space for newborn animals.
-        List<Place> newPlaces = new ArrayList<Place>();        
-        // Let all rabbits act.
-      
-               
-        // Add the newly born foxes and rabbits to the main lists.
-        places.addAll(newPlaces);
-
-        view.showStatus(step, rMap);
-        
-        
-    }
-        
-    /**
-     * Reset the simulation to a starting position.
-     */
+  
     public void reset()
     {
         step = 0;
@@ -122,23 +85,58 @@ public class Simulator
         view.showStatus(step, rMap);
     }
     
-    /**
-     * Randomly populate the field with foxes and rabbits.
-     */
+  
     
-    
-    
-    
-
-    
-    public void addFreeSpace(int row, int col){
+    public void addFreeSpace(Location location){
     	
-    	Location location = new Location(row,col);
    	 	FreeSpace freespace = new FreeSpace(rMap, location);
         places.add(freespace);
+        
+        view.showStatus(step, rMap);
+        
    	
    }
+
+	public List<Place> getPlaces() {
+		return places;
+	}
+
+	public void setPlaces(List<Place> places) {
+		this.places = places;
+	}
+
+	public RMap getrMap() {
+		return rMap;
+	}
+
+	public void setrMap(RMap rMap) {
+		this.rMap = rMap;
+	}
+
+	public int getStep() {
+		return step;
+	}
+
+	public void setStep(int step) {
+		this.step = step;
+	}
+
+	public SimulatorView getView() {
+		return view;
+	}
+
+	public void setView(SimulatorView view) {
+		this.view = view;
+	}
+
+	public static int getDefaultWidth() {
+		return DEFAULT_WIDTH;
+	}
+
+	public static int getDefaultDepth() {
+		return DEFAULT_DEPTH;
+	}
     
-    
+   
     
 }
