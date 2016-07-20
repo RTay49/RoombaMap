@@ -24,7 +24,7 @@ public class Simulator
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
 
     // List of animals in the field.
-    private List<Location> locations;
+    private List<Place> places;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -54,7 +54,7 @@ public class Simulator
             width = DEFAULT_WIDTH;
         }
         
-        locations = new ArrayList<Location>();
+        places = new ArrayList<Place>();
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
@@ -98,12 +98,12 @@ public class Simulator
         step++;
 
         // Provide space for newborn animals.
-        List<Location> newLocations = new ArrayList<Location>();        
+        List<Place> newPlaces = new ArrayList<Place>();        
         // Let all rabbits act.
       
                
         // Add the newly born foxes and rabbits to the main lists.
-        locations.addAll(newLocations);
+        places.addAll(newPlaces);
 
         view.showStatus(step, field);
         
@@ -116,7 +116,7 @@ public class Simulator
     public void reset()
     {
         step = 0;
-        locations.clear();
+        places.clear();
         //populate();
         
         // Show the starting state in the view.
@@ -134,8 +134,9 @@ public class Simulator
     
     public void addFreeSpace(int row, int col){
     	
-   	 FreeSpace freespace = new FreeSpace(row, col);
-        locations.add(freespace);
+    	Location location = new Location(row,col);
+   	 	FreeSpace freespace = new FreeSpace(field, location);
+        places.add(freespace);
    	
    }
     

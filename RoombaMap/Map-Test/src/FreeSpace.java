@@ -1,8 +1,8 @@
 
-public class FreeSpace extends Location {
+public class FreeSpace extends Place {
 	
-	public FreeSpace(int row, int col){
-		super(row, col);
+	public FreeSpace(Field field, Location location){
+		super(field, location);
 		
 		
 	}

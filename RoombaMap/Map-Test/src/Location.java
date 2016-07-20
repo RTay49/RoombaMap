@@ -9,6 +9,7 @@ public class Location
     // Row and column positions.
     private int row;
     private int col;
+    private Field field;
 
     /**
      * Represent a row and column.
