@@ -30,7 +30,7 @@ public class SimulatorView extends JFrame
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
-    private FieldStats stats;
+    private RMapStats stats;
 
     /**
      * Create a view of the given width and height.
@@ -39,7 +39,7 @@ public class SimulatorView extends JFrame
      */
     public SimulatorView(int height, int width)
     {
-        stats = new FieldStats();
+        stats = new RMapStats();
         colors = new LinkedHashMap<Class, Color>();
 
         setTitle("Roomb-a-map");
@@ -88,7 +88,7 @@ public class SimulatorView extends JFrame
      * @param step Which iteration step it is.
      * @param field The field whose status is to be displayed.
      */
-    public void showStatus(int step, Field field)
+    public void showStatus(int step, RMap rMap)
     {
         if(!isVisible()) {
             setVisible(true);
@@ -99,9 +99,9 @@ public class SimulatorView extends JFrame
         
         fieldView.preparePaint();
 
-        for(int row = 0; row < field.getDepth(); row++) {
-            for(int col = 0; col < field.getWidth(); col++) {
-                Object location = field.getObjectAt(row, col);
+        for(int row = 0; row < rMap.getDepth(); row++) {
+            for(int col = 0; col < rMap.getWidth(); col++) {
+                Object location = rMap.getObjectAt(row, col);
                 if(location != null) {
                     stats.incrementCount(location.getClass());
                     fieldView.drawMark(col, row, getColor(location.getClass()));
@@ -113,7 +113,7 @@ public class SimulatorView extends JFrame
         }
         stats.countFinished();
 
-        population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
+        population.setText(POPULATION_PREFIX + stats.getPopulationDetails(rMap));
         fieldView.repaint();
     }
 
@@ -121,9 +121,9 @@ public class SimulatorView extends JFrame
      * Determine whether the simulation should continue to run.
      * @return true If there is more than one species alive.
      */
-    public boolean isViable(Field field)
+    public boolean isViable(RMap rMap)
     {
-        return stats.isViable(field);
+        return stats.isViable(rMap);
     }
     
     /**

@@ -11,7 +11,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
  */
-public class Field
+public class RMap
 {
     // A random number generator for providing random locations.
     private static final Random rand = Randomizer.getRandom();
@@ -26,7 +26,7 @@ public class Field
      * @param depth The depth of the field.
      * @param width The width of the field.
      */
-    public Field(int depth, int width)
+    public RMap(int depth, int width)
     {
         this.depth = depth;
         this.width = width;

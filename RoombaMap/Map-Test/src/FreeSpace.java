@@ -1,7 +1,7 @@
 
 public class FreeSpace extends Place {
 	
-	public FreeSpace(Field field, Location location){
+	public FreeSpace(RMap field, Location location){
 		super(field, location);
 		
 		

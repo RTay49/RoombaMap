@@ -26,7 +26,7 @@ public class Simulator
     // List of animals in the field.
     private List<Place> places;
     // The current state of the field.
-    private Field field;
+    private RMap rMap;
     // The current step of the simulation.
     private int step;
     // A graphical view of the simulation.
@@ -55,12 +55,11 @@ public class Simulator
         }
         
         places = new ArrayList<Place>();
-        field = new Field(depth, width);
+        rMap = new RMap(depth, width);
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
         view.setColor(FreeSpace.class, Color.GREEN);
-        view.setColor(Fox.class, Color.RED);
         
         // Setup a valid starting point.
         reset();
@@ -83,7 +82,7 @@ public class Simulator
      */
     public void simulate(int numSteps)
     {
-        for(int step = 1; step <= numSteps && view.isViable(field); step++) {
+        for(int step = 1; step <= numSteps && view.isViable(rMap); step++) {
             simulateOneStep();
         }
     }
@@ -105,7 +104,7 @@ public class Simulator
         // Add the newly born foxes and rabbits to the main lists.
         places.addAll(newPlaces);
 
-        view.showStatus(step, field);
+        view.showStatus(step, rMap);
         
         
     }
@@ -120,7 +119,7 @@ public class Simulator
         //populate();
         
         // Show the starting state in the view.
-        view.showStatus(step, field);
+        view.showStatus(step, rMap);
     }
     
     /**
@@ -135,7 +134,7 @@ public class Simulator
     public void addFreeSpace(int row, int col){
     	
     	Location location = new Location(row,col);
-   	 	FreeSpace freespace = new FreeSpace(field, location);
+   	 	FreeSpace freespace = new FreeSpace(rMap, location);
         places.add(freespace);
    	
    }

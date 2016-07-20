@@ -1,11 +1,11 @@
 
 public abstract class Place {
 	
- private Field field;
+ private RMap field;
  
  private Location location;
  
- public Place(Field field, Location location){
+ public Place(RMap field, Location location){
  
  this.field = field;
  setLocation(location);
