@@ -9,22 +9,46 @@ public class Location
     // Row and column positions.
     private int row;
     private int col;
-    private RMap field;
+    private int width;
+    private int depth;
 
     /**
      * Represent a row and column.
      * @param row The row.
      * @param col The column.
      */
-    public Location(int row, int col)
+    public Location(int width, int depth, int X, int Y)
     {
-        this.row = row;
-        this.col = col;
+        this.width = width;
+        this.depth = depth;
+        col = convertCoordX(X);
+        row = convertCoordY(Y);
     }
     
     /**
      * Implement content equality.
      */
+    public int convertCoordX (int X){
+    	
+    	int w_conv = (width-1)/2;
+		
+    	int col = X + w_conv;
+    	
+    	return col;
+    }
+    
+    public int convertCoordY (int Y){
+	
+		int d_conv = (depth-1)/2;
+	
+		int row = (Y * -1) + d_conv;
+		
+		return row;
+		
+		
+    }
+    
+    
     public boolean equals(Object obj)
     {
         if(obj instanceof Location) {

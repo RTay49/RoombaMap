@@ -65,11 +65,12 @@ public class SimulatorTest {
 		RMap rMap = sim.getrMap();
 		
 		assertNotNull(rMap);
-		
+		int width = rMap.getWidth();
+		int depth = rMap.getDepth();
 		int row = 25;
 		int col = 50;
 		
-		Location location = new Location(25,50);
+		Location location = new Location(width, depth, 5, 5);
 		
 		sim.addFreeSpace(location);
 		

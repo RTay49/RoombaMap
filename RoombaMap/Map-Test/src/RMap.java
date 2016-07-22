@@ -56,7 +56,7 @@ public class RMap
 
     public void place(Object place, int row, int col)
     {
-        place(place, new Location(row, col));
+        place(place, new Location(width, depth,row, col));
     }
     
  

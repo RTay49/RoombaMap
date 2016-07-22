@@ -32,6 +32,8 @@ public class Simulator
     // A graphical view of the simulation.
     private SimulatorView view;
     
+    private Robot bot;
+    
     
     /**
      * Construct a simulation field with default size.
@@ -64,14 +66,19 @@ public class Simulator
         
         places = new ArrayList<Place>();
         rMap = new RMap(depth, width);
-
+        bot = new Robot(rMap, new Location(width, depth, 0, 0));
+        
+        
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
         view.setColor(FreeSpace.class, Color.GREEN);
+        view.setColor(Wall.class, Color.RED);
+        view.setColor(Robot.class, Color.BLUE);
         
         // Setup a valid starting point.
         reset();
        //populate();
+        view.showStatus(step, rMap);
     }
     
   
@@ -86,6 +93,13 @@ public class Simulator
     }
     
   
+    public void addRobot(Location location){
+    	
+    	Robot robot = new Robot(rMap, location);
+    	view.showStatus(step, rMap);
+    	
+    }
+    
     
     public void addFreeSpace(Location location){
     	

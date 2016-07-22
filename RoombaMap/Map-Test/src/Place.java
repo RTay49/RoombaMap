@@ -5,6 +5,7 @@ public abstract class Place {
  
  private Location location;
  
+ 
  public Place(RMap rMap, Location location){
  
  this.rMap = rMap;
@@ -27,4 +28,5 @@ public void setrMap(RMap rMap) {
 public Location getLocation() {
 	return location;
 }
+
 }
