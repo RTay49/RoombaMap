@@ -55,41 +55,4 @@ public class SimulatorTest {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testAddFreeSpace() {
-		Simulator sim = new Simulator();
-		
-		assertNotNull(sim);
-		
-		
-		RMap rMap = sim.getrMap();
-		
-		assertNotNull(rMap);
-		
-		int row = 25;
-		int col = 50;
-		
-		Location location = new Location(5, 5);
-		
-		sim.addFreeSpace(location);
-		
-		List<Place> places = sim.getPlaces();
-		
-		FreeSpace freeSpace = (FreeSpace) places.get(0);
-		
-		assertNotNull(freeSpace);
-		
-		RMap fs_RMap = freeSpace.getrMap();
-		Location fs_location = freeSpace.getLocation();
-		
-		int r_row = fs_location.getRow();
-		int r_col = fs_location.getCol();
-		
-		assertEquals(row, r_row);
-		assertEquals(col, r_col);
-		assertEquals(rMap, fs_RMap);
-		
-	}
-	
-
 }

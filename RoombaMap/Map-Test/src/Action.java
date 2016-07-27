@@ -10,11 +10,15 @@ public class Action {
 	
 	private Communication com;
 	
+	private Command cmd;
+	
 	private Simulator sim; 
 	
 	private Robot bot;
 	
 	private BotPlot bP;
+	
+	private Plot plot;
 	
 	private PathFinder pf;
 
@@ -29,6 +33,9 @@ public class Action {
 		this.bot = sim.getBot();
 		bP = new BotPlot(bot);
 		
+		cmd = new Command(com);
+		plot = new Plot(sim);
+		
 	
 	}
 	
@@ -39,40 +46,12 @@ public class Action {
 		
 		if(message == "start" && activated != true){
 			activated = true;
+			cmd.stop();
 			bot.setMov("st");
 			
 			ComPack scan = com.makeComPack();
 			
-			List<Integer> freeSpaces = pf.findEmptySpace();
-			int fs = freeSpaces.get(0);
-			if(fs == 3){
-				bot.setDir(3);
-				bot.setMov("fw");
-				System.out.println("f0");
-			}
-			else if(fs == 2){
-				bot.setDir(2);
-				bot.setMov("bk");
-				System.out.println("b0");
-			}
-			else if(fs == 1){
-				System.out.println("r90");
-				ComPack order = com.makeComPack();
-				if(order.getMessage() == "done"){
-					bot.setDir(1);
-					System.out.println("f0");
-					bot.setMov("fw");
-				}
-			}
-			else if(fs == 0){
-				System.out.println("l90");
-				ComPack order = com.makeComPack();
-				if(order.getMessage() == "done"){
-					bot.setDir(0);
-					System.out.println("f0");
-					bot.setMov("fw");
-				}
-			}
+			findRoute();
 		}
 		
 		
@@ -85,7 +64,6 @@ public class Action {
 		
 		String message =  comPack.getMessage();
 		
-	
 		
 		if(message == "start" && activated != false){
 			int dir = bot.getDir();
@@ -107,60 +85,64 @@ public class Action {
 				
 				
 				if (posCon == true){
-					System.out.println(oldMov);
+					com.sendMessage(oldMov);
 				}
 				else {
-					int fs = freeSpaces.get(0);
-
-					if(fs == 3){
-						bot.setDir(3);
-						bot.setMov("fw");
-						System.out.println("f0");
+					findRoute();
 					}
-					else if(fs == 2){
-						bot.setDir(2);
-						bot.setMov("bk");
-						System.out.println("b0");
-					}
-					else if(fs == 1){
-						System.out.println("r90");
-						ComPack order = com.makeComPack();
-						if(order.getMessage() == "done"){
-							bot.setDir(1);
-							System.out.println("f0");
-							bot.setMov("fw");
-						}
-					}
-					else if(fs == 0){
-						System.out.println("l90");
-						ComPack order = com.makeComPack();
-						if(order.getMessage() == "done"){
-							bot.setDir(0);
-							System.out.println("f0");
-							bot.setMov("fw");
-						}
-					}
-				}
 		} 
-			
 		else {
-			int mov = comPack.getMov();
-			decide(message, mov);
+			
+			decide(message);
 		}
 		
 		
 	}
 
-	public void decide(String message, int mov){
+	public void decide(String message){
 		
 		int dir = bot.getDir();
 		
-		if(message == "nw" && dir == 0){
+		if (message == "nw"){
+			plot.plotFreeSpcae();
+			moveBot(dir);
+		}
 		
-			bot
-			
+		else if(message == "ft"){
+			botTurnRight();
+			plot.plotFreeSpcae();
+			plot.plotWallfront();
 			
 		}
+		else if(message == "rt"){
+			botTurnRight();
+			plot.plotFreeSpcae();
+			plot.plotWallLeft();
+		}
+		else if(message == "fr"){
+			botTurnRight();
+			plot.plotFreeSpcae();
+			plot.plotWallfront();
+			plot.plotWallLeft();
+		}
+		else if(message == "rt"){
+			plot.plotFreeSpcae();
+			plot.plotWallLeft();
+		}
+		else if(message == "lt"){
+			plot.plotFreeSpcae();
+			plot.plotWallRight();
+		}
+		else if(message == "lf"){
+			botTurnLeft();
+			plot.plotFreeSpcae();
+			plot.plotWallfront();
+			plot.plotWallRight();
+		}
+	
+		
+		//to do incorpeate backwards movement.
+			
 
 		
 	}
@@ -173,7 +155,72 @@ public class Action {
 		return complete;
 	}
 	
+	public void moveBot(int dir){
+		if(dir == 0){
+			bP.moveBotUp();
+		}
+		else if (dir == 1){
+			bP.moveBotRight();
+		}
+		else if (dir == 2){
+			bP.moveBotDown();
+		}
+		else if (dir == 3){
+			bP.moveBotLeft();
+		}
+	}	
 	
+	public void findRoute(){
+		
+		List<Integer> freeSpaces = pf.findEmptySpace();
+		
+		
+		int fsl = freeSpaces.size();
+		int fs = freeSpaces.get(fsl-1);
+		
+		if(fs == 0){
+			bot.setDir(0);
+			bot.setMov("fw");
+			cmd.fowardCon();
+		}
+		else if(fs == 1){
+			bot.setDir(0);
+			cmd.turnRightN(90);
+			bot.turnDirRight();
+			bot.setMov("fw");
+			cmd.fowardCon();
+		}
+		else if(fs == 2){
+			bot.setDir(2);
+			cmd.backwardCon();
+			bot.setMov("bk");
+
+		}
+		else if(fs == 3){
+			bot.setDir(0);
+			cmd.turnLeftN(90);
+			bot.turnDirLeft();
+			bot.setMov("fw");
+			cmd.fowardCon();
+			}
+	}
+	
+	public void botTurnRight(){
+		cmd.stop();
+		bot.setMov("st");
+		cmd.turnRightN(90);
+		bot.turnDirRight();
+		cmd.fowardCon();
+		bot.setMov("fw");
+	}
+	public void botTurnLeft(){
+		cmd.stop();
+		bot.setMov("st");
+		cmd.turnLeftN(90);
+		bot.turnDirLeft();
+		cmd.backwardCon();
+		bot.setMov("bk");
+	}
 	
 	
 }

@@ -131,11 +131,6 @@ public class Simulator
 	public List<Wall> getWalls() {
 		return walls;
 	}
-
-	public void setPlaces(List<Place> places) {
-		this.places = places;
-	}
-	
     public Robot getBot() {
 		return bot;
 	}

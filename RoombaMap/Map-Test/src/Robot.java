@@ -6,7 +6,7 @@ public class Robot {
 	
 	private String mov;
 	
-	private int dir;
+	private int dir;//0 = up, 1 = right, 2 = down , 3 = left.
 	 
 	 private Location location;
 	 
@@ -25,6 +25,26 @@ public class Robot {
 	     rMap.place(this, newLocation);
 	 
 	 }
+	 
+	 public void turnDirRight(){
+		if(dir != 3){
+			dir = dir + 1;
+		}
+		else{
+			dir = 0;
+		}
+	 }
+	 
+	 public void turnDirLeft(){
+			if(dir != 0){
+				dir = dir - 1;
+			}
+			else{
+				dir = 3;
+			}
+		 }
+	 
+	 
 	 
 	 
 	 
