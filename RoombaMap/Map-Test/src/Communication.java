@@ -1,54 +1,68 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Communication {
 
-	private BufferedReader br;
+	private Scanner sc;
 	
 	public Communication(){
 		
-		br = new BufferedReader(new InputStreamReader(System.in));
+		sc = new Scanner(System.in);
 	}
 	
-	public ComPack makeComPack() throws IOException {
+	public ComPack makeComPack() {
 		
-		try {
-			br.wait();
-			System.out.println("Awaiting input");
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String message = sc.nextLine();
 		
-		try{
-		String input = br.readLine();
+		if(message != null){
+			if(message != "start"){
+	
+				String wall = message.substring(0,1);
 		
-		char[] chaA = input.toCharArray(); 
+				String mov = message.substring(3);
 		
-		char wall = chaA[0];
+				boolean isnumber = checkNumber(mov);
 		
-		char dir = chaA[1];
+				
+				if(wall != null && isnumber == true){
+				
+					int Intmov = Integer.parseInt(mov);
 		
-		ComPack com = new ComPack(wall,dir);
+					ComPack comPack = new ComPack(wall, Intmov);
 		
-		return com;
-		
-		} catch (IOException inputerror){
+					return comPack;
+				}
+				else {
+					return null;
+				}
+			}
 			
-			System.out.println("Input error");
+			else {
+				ComPack comPack = new ComPack (message);
+				return comPack;
+			}
+		}
+		else {
 			return null;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
+	
 	}
 	
-
+	public boolean checkNumber(String mov){
+		
+		try{
+			int i = Integer.parseInt(mov);
+		} catch(NumberFormatException e) {
+			return false;
+		} catch (NullPointerException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public void sendMessage(String message){
+		
+		System.out.println(message);
+		
+	}
 	
 }

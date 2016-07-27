@@ -7,22 +7,30 @@
 public class Location
 {
     // Row and column positions.
-    private int row;
+	
+	private int XCord;
+	private int YCord;
+	
+	
+	private int row;
     private int col;
-    private int width;
-    private int depth;
+   
 
     /**
      * Represent a row and column.
      * @param row The row.
      * @param col The column.
      */
-    public Location(int width, int depth, int X, int Y)
+    public Location(int XCord, int YCord)
     {
-        this.width = width;
-        this.depth = depth;
-        col = convertCoordX(X);
-        row = convertCoordY(Y);
+        
+       
+        this.XCord = XCord;
+        this.YCord = YCord;
+        
+        
+        col = convertCoordX(XCord);
+        row = convertCoordY(YCord);
     }
     
     /**
@@ -30,7 +38,7 @@ public class Location
      */
     public int convertCoordX (int X){
     	
-    	int w_conv = (width-1)/2;
+    	int w_conv = (175-1)/2;
 		
     	int col = X + w_conv;
     	
@@ -39,7 +47,7 @@ public class Location
     
     public int convertCoordY (int Y){
 	
-		int d_conv = (depth-1)/2;
+		int d_conv = (135-1)/2;
 	
 		int row = (Y * -1) + d_conv;
 		
@@ -95,4 +103,12 @@ public class Location
     {
         return col;
     }
+    
+    public int getXCord(){
+    	return XCord;
+    }
+    public int getYCord(){
+    	return YCord;
+    }
+    
 }

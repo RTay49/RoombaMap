@@ -56,7 +56,7 @@ public class RMap
 
     public void place(Object place, int row, int col)
     {
-        place(place, new Location(width, depth,row, col));
+        place(place, new Location(row, col));
     }
     
  
@@ -64,6 +64,30 @@ public class RMap
     public void place(Object place, Location location)
     {
     	rMap[location.getRow()][location.getCol()] = place;
+    }
+    
+    public List<Location> adjacentLocations(Location location)
+    {
+        assert location != null : "Null location passed to adjacentLocations";
+        // The list of locations to be returned.
+        List<Location> locations = new LinkedList<Location>();
+        if(location != null) {
+            int row = location.getRow();
+            int col = location.getCol();
+            for(int roffset = -1; roffset <= 1; roffset++) {
+                int nextRow = row + roffset;
+                if(nextRow >= 0 && nextRow < depth) {
+                    for(int coffset = -1; coffset <= 1; coffset++) {
+                        int nextCol = col + coffset;
+                        // Exclude invalid locations and the original location.
+                        if(nextCol >= 0 && nextCol < width && (roffset != 0 || coffset != 0)) {
+                            locations.add(new Location(nextRow, nextCol));
+                        }
+                    }
+                }
+            }
+        }
+        return locations;
     }
     
   

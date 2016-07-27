@@ -1,29 +1,31 @@
 
 public class ComPack {
 
-	private char dir;
+	private String message;
 	
-	private char wall;
+	private int mov;
 	
-	public ComPack(char wall, char dir){
-		this.wall = wall;
-		this.dir = dir;
+	
+	public ComPack(String message, int mov){
+		this.message = message;
+		
+		this.mov = mov;
 			
 	}
 	
-
-	public char getWall() {
-		return wall;
+	public ComPack(String message){
+		
+		this.message = message;
+		
+		mov = (Integer) null;
 	}
 
-	public char getDir() {
-		return dir;
+	public String getMessage() {
+		return message;
 	}
-
 	
-	
-
-	
-	
+	public int getMov(){
+		return mov;
+	}
 	
 }

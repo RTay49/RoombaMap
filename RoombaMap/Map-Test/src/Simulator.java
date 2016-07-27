@@ -15,9 +15,9 @@ public class Simulator
 {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
-    private static final int DEFAULT_WIDTH = 125;
+    private static final int DEFAULT_WIDTH = 175;
     // The default depth of the grid.
-    private static final int DEFAULT_DEPTH = 85;
+    private static final int DEFAULT_DEPTH = 135;
     
 
     
@@ -66,7 +66,7 @@ public class Simulator
         
         places = new ArrayList<Place>();
         rMap = new RMap(depth, width);
-        bot = new Robot(rMap, new Location(width, depth, 0, 0));
+        bot = new Robot(rMap, new Location(0, 0));
         
         
         // Create a view of the state of each location in the field.
@@ -82,7 +82,9 @@ public class Simulator
     }
     
   
-    public void reset()
+
+
+	public void reset()
     {
         step = 0;
         places.clear();
@@ -93,13 +95,13 @@ public class Simulator
     }
     
   
-    public void addRobot(Location location){
+    
+    
+    public void changeBotLoc (Location location){
     	
-    	Robot robot = new Robot(rMap, location);
-    	view.showStatus(step, rMap);
+    	bot.setLocation(location);
     	
     }
-    
     
     public void addFreeSpace(Location location){
     	
@@ -117,6 +119,10 @@ public class Simulator
 
 	public void setPlaces(List<Place> places) {
 		this.places = places;
+	}
+	
+    public Robot getBot() {
+		return bot;
 	}
 
 	public RMap getrMap() {
