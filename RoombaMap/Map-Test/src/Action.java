@@ -1,3 +1,4 @@
+import java.util.List;
 
 public class Action {
 	
@@ -12,7 +13,7 @@ public class Action {
 	
 	private Robot bot;
 	
-	private BotControl bCon;
+	private BotPlot bCon;
 	
 	private PathFinder pf;
 
@@ -25,7 +26,7 @@ public class Action {
 		complete = false;
 		com = new Communication();
 		this.bot = sim.getBot();
-		bCon = new BotControl(bot);
+		bCon = new BotPlot(bot);
 		
 	
 	}
@@ -35,11 +36,10 @@ public class Action {
 		
 		String message =  comPack.getMessage();
 		
-		if(message == "start"){
+		if(message == "start" && activated != true){
 			activated = true;
-			com.sendMessage("f0");
-			bot.setDir("up");
-			bot.setMov("fw");
+			List<Integer> freeSpaces = pf.findEmptySpace();
+			int fs = freeSpaces.get(0);
 		}
 		
 		
@@ -54,8 +54,9 @@ public class Action {
 		
 	
 		
-		if(message == "start"){
+		if(message == "start" && activated != false){
 			String dir = bot.getDir();
+			com.sendMessage("st");
 			bot.setMov("st");
 			Location botLoc = bot.getLocation();
 		}
@@ -68,8 +69,14 @@ public class Action {
 
 	public void decide(String message, int mov){
 		
+		String dir = bot.getDir();
 		
-		if(message == "nw"){
+		if(message == "nw" && dir == "up"){
+			
+			List<Integer> freeSpaces = pf.findEmptySpace();
+			freeSpaces.get(0);
+			
+			
 			
 		}
 

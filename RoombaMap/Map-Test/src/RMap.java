@@ -102,6 +102,19 @@ public class RMap
         return rMap[row][col];
     }
     
+    
+    public List<Location> getFreeAdjacentLocations(Location location)
+    {
+        List<Location> free = new LinkedList<Location>();
+        List<Location> adjacent = adjacentLocations(location);
+        for(Location next : adjacent) {
+            if(getObjectAt(next) == null) {
+                free.add(next);
+            }
+        }
+        return free;
+    }
+    
   
     public int getDepth()
     {
