@@ -6,7 +6,7 @@ public class Robot {
 	
 	private String mov;
 	
-	private String dir;
+	private int dir;
 	 
 	 private Location location;
 	 
@@ -34,10 +34,10 @@ public class Robot {
 	public void setMov(String mov) {
 		this.mov = mov;
 	}
-	public String getDir() {
+	public int getDir() {
 		return dir;
 	}
-	public void setDir(String dir) {
+	public void setDir(int dir) {
 		this.dir = dir;
 	}
 	public RMap getrMap() {

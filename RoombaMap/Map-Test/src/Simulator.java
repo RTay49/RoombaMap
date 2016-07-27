@@ -24,7 +24,8 @@ public class Simulator
     private int width;
     private int depth;
     // List of places on the map.
-    private List<Place> places;
+    private List<Wall> walls;
+    private List<FreeSpace> freeSpaces;
     // The current state of the map.
     private RMap rMap;
     // The current step of the simulation.
@@ -64,7 +65,7 @@ public class Simulator
         	
         }
         
-        places = new ArrayList<Place>();
+        walls = new ArrayList<Wall>();
         rMap = new RMap(depth, width);
         bot = new Robot(rMap, new Location(0, 0));
         
@@ -87,7 +88,8 @@ public class Simulator
 	public void reset()
     {
         step = 0;
-        places.clear();
+        walls.clear();
+        freeSpaces.clear();
         //populate();
         
         // Show the starting state in the view.
@@ -106,15 +108,28 @@ public class Simulator
     public void addFreeSpace(Location location){
     	
    	 	FreeSpace freespace = new FreeSpace(rMap, location);
-        places.add(freespace);
+        freeSpaces.add(freespace);
+        
+        view.showStatus(step, rMap);
+        
+   	
+   }
+    
+   public void addWall(Location location){
+    	
+   	 	Wall wall = new Wall(rMap, location);
+        walls.add(wall);
         
         view.showStatus(step, rMap);
         
    	
    }
 
-	public List<Place> getPlaces() {
-		return places;
+	public List<FreeSpace> getFreeSpaces() {
+		return freeSpaces;
+	}
+	public List<Wall> getWalls() {
+		return walls;
 	}
 
 	public void setPlaces(List<Place> places) {
