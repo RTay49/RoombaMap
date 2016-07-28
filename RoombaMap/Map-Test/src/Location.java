@@ -21,40 +21,20 @@ public class Location
      * @param row The row.
      * @param col The column.
      */
-    public Location(int XCord, int YCord)
+    public Location(int XCord, int YCord, int col, int row)
     {
         
        
+        this.col = col;
+        this.row = row;
         this.XCord = XCord;
         this.YCord = YCord;
-        
-        
-        col = convertCoordX(XCord);
-        row = convertCoordY(YCord);
+       
     }
     
     /**
      * Implement content equality.
      */
-    public int convertCoordX (int X){
-    	
-    	int w_conv = (175-1)/2;
-		
-    	int col = X + w_conv;
-    	
-    	return col;
-    }
-    
-    public int convertCoordY (int Y){
-	
-		int d_conv = (135-1)/2;
-	
-		int row = (Y * -1) + d_conv;
-		
-		return row;
-		
-		
-    }
     
     
     public boolean equals(Object obj)

@@ -19,6 +19,8 @@ public class RMap
     private int depth, width;
     // Storage for the animals.
     private Object[][] rMap;
+    
+    private LocationMaker lm;
 
     /**
      * Represent a field of the given dimensions.
@@ -30,6 +32,7 @@ public class RMap
         this.depth = depth;
         this.width = width;
         rMap = new Object[depth][width];
+        lm = new LocationMaker();
     }
     
     /**
@@ -56,7 +59,7 @@ public class RMap
 
     public void place(Object place, int row, int col)
     {
-        place(place, new Location(row, col));
+        place(place, lm.makeLocationColRow(col, row));
     }
     
  
@@ -70,18 +73,33 @@ public class RMap
     {
         assert location != null : "Null location passed to adjacentLocations";
         // The list of locations to be returned.
+        
+        int X = location.getXCord();
+        int Y = location.getYCord();
+        
+        int lc = location.getCol();
+        int lr = location.getRow();
+        
         List<Location> locations = new LinkedList<Location>();
         if(location != null) {
+        	System.out.println("location not null");
+        	System.out.println("finding locations for: " + X + "(" + lc + ") and  " + Y + "(" + lr + ").");
             int row = location.getRow();
+            System.out.println("location row:" + row);
             int col = location.getCol();
+            System.out.println("location col:" + col);
             for(int roffset = -1; roffset <= 1; roffset++) {
                 int nextRow = row + roffset;
+                System.out.println("next row:" + nextRow);
                 if(nextRow >= 0 && nextRow < depth) {
                     for(int coffset = -1; coffset <= 1; coffset++) {
                         int nextCol = col + coffset;
+                        System.out.println("next col:" + nextCol);
                         // Exclude invalid locations and the original location.
                         if(nextCol >= 0 && nextCol < width && (roffset != 0 || coffset != 0)) {
-                            locations.add(new Location(nextRow, nextCol));
+                        	Location newloc = lm.makeLocationColRow(nextCol, nextRow);
+                        	System.out.println("Rmap new location added: " + newloc.getXCord() + "(" + newloc.getCol() + "), " + newloc.getYCord() + "(" + newloc.getRow() + ").") ;
+                        	locations.add(newloc);
                         }
                     }
                 }

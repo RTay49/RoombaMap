@@ -64,14 +64,14 @@ public class RMapStats
      * Increment the count for one class of animal.
      * @param animalClass The class of animal to increment.
      */
-    public void incrementCount(Class animalClass)
+    public void incrementCount(Class placeClass)
     {
-        Counter count = counters.get(animalClass);
+        Counter count = counters.get(placeClass);
         if(count == null) {
             // We do not have a counter for this species yet.
             // Create one.
-            count = new Counter(animalClass.getName());
-            counters.put(animalClass, count);
+            count = new Counter(placeClass.getName());
+            counters.put(placeClass, count);
         }
         count.increment();
     }

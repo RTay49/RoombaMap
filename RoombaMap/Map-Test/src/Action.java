@@ -33,6 +33,8 @@ public class Action {
 		this.bot = sim.getBot();
 		bP = new BotPlot(bot);
 		
+		pf = new PathFinder(sim.getrMap(), bot);
+		
 		cmd = new Command(com);
 		plot = new Plot(sim);
 		
@@ -40,19 +42,33 @@ public class Action {
 	}
 	
 	public void setUp(){
+		System.out.println("enter start");
+		
 		ComPack comPack = com.makeComPack();
 		
 		String message =  comPack.getMessage();
 		
-		if(message == "start" && activated != true){
+		System.out.println("message recived: '" + message + "'");
+		if(message .equals("start") && activated == false){
 			activated = true;
+			System.out.println("activated: " + activated);
 			cmd.stop();
 			bot.setMov("st");
-			
+			int dir = 0;
+			bot.setDir(dir);
+			cmd.scan();
 			ComPack scan = com.makeComPack();
-			
+			String result = scan.getMessage(); 
+			scan(result,dir);
+			sim.update();
 			findRoute();
+			System.out.println("setup success");
 		}
+		else{
+			System.out.println("setup fail");
+			System.out.println("message recived: '" + message + "'");
+			System.out.println("activated: " + activated);
+			}
 		
 		
 	}
@@ -65,7 +81,7 @@ public class Action {
 		String message =  comPack.getMessage();
 		
 		
-		if(message == "start" && activated != false){
+		if(message.equals("start") && activated != false){
 			int dir = bot.getDir();
 			com.sendMessage("st");
 			String oldMov = bot.getMov();
@@ -86,64 +102,104 @@ public class Action {
 				
 				if (posCon == true){
 					com.sendMessage(oldMov);
+					sim.update();
 				}
 				else {
+					sim.update();
 					findRoute();
 					}
 		} 
 		else {
 			
-			decide(message);
+			move(message);
 		}
 		
 		
 	}
 
-	public void decide(String message){
+	public void move(String message){
 		
 		int dir = bot.getDir();
+		String mov = bot.getMov();
 		
-		if (message == "nw"){
-			plot.plotFreeSpcae();
-			moveBot(dir);
-		}
 		
-		else if(message == "ft"){
-			botTurnRight();
-			plot.plotFreeSpcae();
-			plot.plotWallfront();
-			
-		}
-		else if(message == "rt"){
-			botTurnRight();
-			plot.plotFreeSpcae();
-			plot.plotWallLeft();
-		}
-		else if(message == "fr"){
-			botTurnRight();
-			plot.plotFreeSpcae();
-			plot.plotWallfront();
-			plot.plotWallLeft();
-		}
-		else if(message == "rt"){
-			plot.plotFreeSpcae();
-			plot.plotWallLeft();
-		}
-		else if(message == "lt"){
-			plot.plotFreeSpcae();
-			plot.plotWallRight();
-		}
-		else if(message == "lf"){
-			botTurnLeft();
-			plot.plotFreeSpcae();
-			plot.plotWallfront();
-			plot.plotWallRight();
-		}
+
+		scan(message,dir);
+		moveBot(dir);
+		
+		
+		
+		//else if(message.equals("sf")){
+			//List<FreeSpace> freeSpaces = sim.getFreeSpaces();
+			 
+			//int i = 0;
+			//for(FreeSpace freespace : freeSpaces){
+				
+				//i++;
+				
+				//Location location = freespace.getLocation();
+				
+				//System.out.println("free space " + i + "at " + location.getXCord() + ","  + location.getYCord() + ".");
+				
+			//}
+		//}
+		//else if(message.equals("sw")){
+			//List<Wall> walls = sim.getWalls();
+			 
+			//int i = 0;
+			//for(Wall wall : walls){
+				
+				//i++;
+				
+				//Location location = wall.getLocation();
+				
+				//System.out.println("wall " + i + "at " + location.getXCord() + ","  + location.getYCord() + ".");
+				
+			//}
+		//}
+		sim.update();
 	
 		
 		//to do incorpeate backwards movement.
 			
 
+		
+	}
+	
+	public void scan(String message, int dir){
+		
+	
+		
+			if (message.equals("nw")){
+				plot.plotFreeSpace();
+			}
+		
+			else if(message.equals("ft")){
+				botTurnRight();
+				plot.plotFreeSpace();
+				plot.plotWall(0,dir);
+			}
+			else if(message.equals("fr")){
+				plot.plotWall(0,dir);
+				plot.plotWall(1,dir);
+				botTurnLeft();
+				plot.plotFreeSpace();
+			}
+			else if(message.equals("rt")){
+				plot.plotFreeSpace();
+				plot.plotWall(1,dir);
+			}
+			else if(message.equals("lt")){
+				plot.plotFreeSpace();
+				plot.plotWall(3,dir);
+			}
+			else if(message.equals("fl")){
+				plot.plotWall(0,dir);
+				plot.plotWall(3,dir);
+				botTurnRight();
+				plot.plotFreeSpace();
+			}
+		sim.update();
 		
 	}
 
@@ -168,15 +224,19 @@ public class Action {
 		else if (dir == 3){
 			bP.moveBotLeft();
 		}
-	}	
+	}
+	
 	
 	public void findRoute(){
 		
+		System.out.println("finding route");
 		List<Integer> freeSpaces = pf.findEmptySpace();
-		
+		System.out.println("free spaces found");
 		
 		int fsl = freeSpaces.size();
-		int fs = freeSpaces.get(fsl-1);
+		System.out.println("free spaces list size: " + fsl);
+		int fs = freeSpaces.get(0);
+		System.out.println("free spaces pick: 0 which is: " + fs);
 		
 		if(fs == 0){
 			bot.setDir(0);

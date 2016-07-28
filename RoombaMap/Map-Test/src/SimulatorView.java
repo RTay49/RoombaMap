@@ -101,13 +101,16 @@ public class SimulatorView extends JFrame
 
         for(int row = 0; row < rMap.getDepth(); row++) {
             for(int col = 0; col < rMap.getWidth(); col++) {
-                Object location = rMap.getObjectAt(row, col);
-                if(location != null) {
-                    stats.incrementCount(location.getClass());
-                    fieldView.drawMark(col, row, getColor(location.getClass()));
+                Object place = rMap.getObjectAt(row, col);
+              // System.out.println("at: " + col + "," + row + ".");
+                if(place != null) {
+                    stats.incrementCount(place.getClass());
+                    //System.out.println(place.getClass().getName());
+                    fieldView.drawMark(col, row, getColor(place.getClass()));
                 }
                 else {
-                    fieldView.drawMark(col, row, EMPTY_COLOR);
+                	//System.out.println("empty");
+                	fieldView.drawMark(col, row, EMPTY_COLOR);
                 }
             }
         }

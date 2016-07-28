@@ -32,9 +32,9 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
-    
     private Robot bot;
     
+    private LocationMaker lm;
     
     /**
      * Construct a simulation field with default size.
@@ -64,10 +64,11 @@ public class Simulator
             width = DEFAULT_WIDTH;
         	
         }
-        
+        lm = new LocationMaker();
+        freeSpaces = new ArrayList<FreeSpace>();
         walls = new ArrayList<Wall>();
         rMap = new RMap(depth, width);
-        bot = new Robot(rMap, new Location(0, 0));
+        bot = new Robot(rMap, lm.makeLocationXY(0, 0));
         
         
         // Create a view of the state of each location in the field.
@@ -110,8 +111,6 @@ public class Simulator
    	 	FreeSpace freespace = new FreeSpace(rMap, location);
         freeSpaces.add(freespace);
         
-        view.showStatus(step, rMap);
-        
    	
    }
     
@@ -120,9 +119,11 @@ public class Simulator
    	 	Wall wall = new Wall(rMap, location);
         walls.add(wall);
         
-        view.showStatus(step, rMap);
-        
-   	
+   }
+   
+   public void update(){
+	   step++;
+	   view.showStatus(step, rMap);
    }
 
 	public List<FreeSpace> getFreeSpaces() {

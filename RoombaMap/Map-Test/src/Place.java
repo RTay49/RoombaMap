@@ -5,11 +5,14 @@ public abstract class Place {
  
  private Location location;
  
+ private String name;
  
- public Place(RMap rMap, Location location){
+ 
+ public Place(RMap rMap, Location location, String name){
  
  this.rMap = rMap;
  setLocation(location);
+ this.name = name;
 }
  protected void setLocation(Location newLocation)
  {
@@ -27,6 +30,9 @@ public void setrMap(RMap rMap) {
 }
 public Location getLocation() {
 	return location;
+}
+public String getName(){
+	return name;
 }
 
 }

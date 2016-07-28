@@ -39,10 +39,13 @@ public class Command {
 		com.sendMessage("l"+n);
 		check();
 	}
+	public void scan(){
+		com.sendMessage("sc");
+	}
 	public void check(){
 		ComPack complete = com.makeComPack();
 		String message = complete.getMessage();
-		if(message !=  "done"){
+		if(!message.equals("done")){
 			com.sendMessage("reset");
 		}
 	}

@@ -2,13 +2,13 @@
 public class BotPlot {
 	
 	private Robot bot;
-	
+	private LocationMaker lm;
 
 	
 	public BotPlot(Robot bot){
 		
 		this.bot = bot;
-	
+		lm = new LocationMaker();
 		
 	}
 	
@@ -24,65 +24,103 @@ public class BotPlot {
 	public void moveBotUp(){
 		
 		 Location oldLocation = getBotLocation();
+		 RMap rMap = bot.getrMap();
+		 
+		 
 		 
 		 int oldXCord = oldLocation.getXCord();
 		 int oldYCord = oldLocation.getYCord();
+		
+		 int oldCol = oldLocation.getCol();
+		 int oldRow = oldLocation.getRow();
 		 
-		 int newYCord = oldYCord + 1;
+		 Object place = rMap.getObjectAt(oldRow, oldCol);
+		 if(!place.getClass().getName().equals("Wall")){
 		 
-		 Location newLocation = new Location(oldXCord, newYCord);
+			 int newYCord = oldYCord + 1;
 		 
-		 bot.setLocation(newLocation);
+			 Location newLocation = lm.makeLocationXY(oldXCord, newYCord);
 		 
+			 bot.setLocation(newLocation);
+			 System.out.println("bot move up");
+		 
+			 rMap.place(place, oldLocation);
+		}
 		
 	}
 	
 	public void moveBotDown(){
 		
 		 Location oldLocation = getBotLocation();
+		 RMap rMap = bot.getrMap();
 		 
 		 int oldXCord = oldLocation.getXCord();
 		 int oldYCord = oldLocation.getYCord();
 		 
-		 int newYCord = oldYCord - 1;
+		 int oldCol = oldLocation.getCol();
+		 int oldRow = oldLocation.getRow();
 		 
-		 Location newLocation = new Location(oldXCord, newYCord);
+		 Object place = rMap.getObjectAt(oldRow, oldCol);
+		 if(!place.getClass().getName().equals("Wall")){
+			 int newYCord = oldYCord - 1;
 		 
-		 bot.setLocation(newLocation);
+			 Location newLocation = lm.makeLocationXY(oldXCord, newYCord);
 		 
+			 bot.setLocation(newLocation);
+			 System.out.println("bot move down");
+			 rMap.place(place, oldLocation);
+		 }
 		
 	}
 	
 	public void moveBotRight(){
 		
 		 Location oldLocation = getBotLocation();
+		 RMap rMap = bot.getrMap();
 		 
 		 int oldXCord = oldLocation.getXCord();
 		 int oldYCord = oldLocation.getYCord();
 		 
-		 int newXCord = oldXCord + 1;
+		 int oldCol = oldLocation.getCol();
+		 int oldRow = oldLocation.getRow();
 		 
-		 Location newLocation = new Location(newXCord, oldYCord);
+		 Object place = rMap.getObjectAt(oldRow, oldCol);
+		 if(!place.getClass().getName().equals("Wall")){
+			 int newXCord = oldXCord + 1;
 		 
-		 bot.setLocation(newLocation);
+			 Location newLocation = lm.makeLocationXY(newXCord, oldYCord);
 		 
+			 bot.setLocation(newLocation);
+			 System.out.println("bot move right");
+			 rMap.place(place, oldLocation);
+		 }
 		
 	}
 	
 	public void moveBotLeft(){
 		
 		 Location oldLocation = getBotLocation();
+		 RMap rMap = bot.getrMap();
+		 
 		 
 		 int oldXCord = oldLocation.getXCord();
 		 int oldYCord = oldLocation.getYCord();
 		 
-		 int newXCord = oldXCord - 1;
+		 int oldCol = oldLocation.getCol();
+		 int oldRow = oldLocation.getRow();
 		 
-		 Location newLocation = new Location(newXCord, oldYCord);
+		 Object place = rMap.getObjectAt(oldRow, oldCol);
 		 
-		 bot.setLocation(newLocation);
+		 if(!place.getClass().getName().equals("Wall")){
+			 int newXCord = oldXCord - 1;
 		 
-		
+			 Location newLocation = lm.makeLocationXY(newXCord, oldYCord);
+		 
+			 bot.setLocation(newLocation);
+			 System.out.println("bot move left");
+			 rMap.place(place, oldLocation);
+		 
+		 }
 	}
 
 }
