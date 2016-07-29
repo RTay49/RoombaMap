@@ -12,7 +12,7 @@ public class Main {
 		
 		
 		System.out.println("loading sim...");
-        sim = new Simulator(11,11);
+        sim = new Simulator(101,101);
         System.out.println("sim loaded");
 		
         System.out.println("loading Action");

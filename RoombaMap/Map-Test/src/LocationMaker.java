@@ -25,7 +25,7 @@ public class LocationMaker {
 	
     public int convertCoordX (int X){
     	
-    	int w_conv = (11-1)/2;
+    	int w_conv = (100-1)/2;
 		
     	int col = X + w_conv;
     	
@@ -34,7 +34,7 @@ public class LocationMaker {
     
     public int convertCoordY (int Y){
 	
-		int d_conv = (11-1)/2;
+		int d_conv = (100-1)/2;
 	
 		int row = (Y * -1) + d_conv;
 		
@@ -43,7 +43,7 @@ public class LocationMaker {
 		
 	public int convertCoordCol (int col){
 		    	
-		 int w_conv = (11-1)/2;
+		 int w_conv = (100-1)/2;
 				
 		 int X = col - w_conv;
 		    	
@@ -52,7 +52,7 @@ public class LocationMaker {
 		    
 	public int convertCoordRow (int row){
 			
-	int d_conv = (11-1)/2;
+	int d_conv = (100-1)/2;
 			
 	int Y = row - d_conv;
 	
