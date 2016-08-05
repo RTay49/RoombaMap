@@ -1,28 +1,42 @@
-import java.util.Scanner;
+
 
 public class Communication {
 
-	private Scanner sc;
+	private SerialListen sl;
+	private SerialWrite sw;
 	
 	public Communication(){
-		
-		sc = new Scanner(System.in);
+		sl = new SerialListen();
+		sw = new SerialWrite();
 	}
 	
-	public ComPack makeComPack() {
+	public String listenForMessage(){
 		
-		String message = sc.nextLine();
-	
-		ComPack comPack = new ComPack (message);
-		return comPack;
+		
+		try {
+			sl.listen();
+			String message = sl.getLastMessage();
+			
+			if(message != null){
+				sl.resetLastMessage();
+			}
+			return message;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		
 	}
-
 	
 	
 	
-	public void sendMessage(String message){
+	
+	public void writeMessage(String message){
 		
-		System.out.println(message);
+		sw.write(message);
+		
 		
 	}
 	

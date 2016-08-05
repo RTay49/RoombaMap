@@ -11,7 +11,7 @@ import gnu.io.SerialPortEventListener;
 import java.util.Enumeration;
 
 
-public class SerialTest implements SerialPortEventListener {
+public class SerialListen implements SerialPortEventListener {
 	SerialPort serialPort;
         /** The port we're normally going to use. */
 	private static final String PORT_NAMES[] = { 
@@ -32,6 +32,8 @@ public class SerialTest implements SerialPortEventListener {
 	private static final int TIME_OUT = 2000;
 	/** Default bits per second for COM port. */
 	private static final int DATA_RATE = 9600;
+	
+	private String lastMessage;
 
 	public void initialize() {
                 // the next line is for Raspberry Pi and 
@@ -67,12 +69,9 @@ public class SerialTest implements SerialPortEventListener {
 					SerialPort.STOPBITS_1,
 					SerialPort.PARITY_NONE);
 
-			char cmd = 'w';
-			
 			// open the streams
 			input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
 			output = serialPort.getOutputStream();
-			output.write(cmd);
 			
 			
 			// add event listeners
@@ -102,6 +101,8 @@ public class SerialTest implements SerialPortEventListener {
 			try {
 				String inputLine=input.readLine();
 				System.out.println(inputLine);
+				lastMessage = inputLine;
+				close();
 			} catch (Exception e) {
 				System.err.println(e.toString());
 			}
@@ -109,20 +110,17 @@ public class SerialTest implements SerialPortEventListener {
 		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
 	
-	public synchronized void writecommand(){
-		
-		char cmd = 'm';
-		
-		try {
-			output.write(cmd);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public String getLastMessage(){
+		return lastMessage;
 	}
+	
+	public void resetLastMessage(){
+		lastMessage = null;
+	}
+	
 
-	public static void main(String[] args) throws Exception {
-		SerialTest main = new SerialTest();
+	public static void listen() throws Exception {
+		SerialListen main = new SerialListen();
 		main.initialize();
 		Thread t=new Thread() {
 			public void run() {

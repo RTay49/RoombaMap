@@ -2,14 +2,16 @@ import java.io.*;
 import java.util.*;
 import gnu.io.*;
 
-public class SimpleWrite {
+public class SerialWrite {
 static Enumeration portList;
 static CommPortIdentifier portId;
-static String messageString = "w";
+static String messageString;
 static SerialPort serialPort;
 static OutputStream outputStream;
 
-public static void main(String[] args) {
+public static void write(String message) {
+	messageString = message;
+	
     portList = CommPortIdentifier.getPortIdentifiers();
 
 

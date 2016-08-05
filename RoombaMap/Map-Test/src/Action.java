@@ -10,8 +10,6 @@ public class Action {
 	
 	private Communication com;
 	
-	private Command cmd;
-	
 	private Simulator sim; 
 	
 	private Robot bot;
@@ -21,7 +19,9 @@ public class Action {
 	private Plot plot;
 	
 	private PathFinder pf;
-
+	
+	private Command cmd;
+	
 	public Action(Simulator sim){
 	
 		
@@ -35,45 +35,21 @@ public class Action {
 		
 		pf = new PathFinder(sim.getrMap(), bot);
 		
-		cmd = new Command(com);
 		plot = new Plot(sim);
 		
-	
+		cmd = new Command(com);
 	}
 	
 	public void setUp(){
-		System.out.println("enter start");
-		
-		ComPack comPack = com.makeComPack();
-		
-		String message =  comPack.getMessage();
-		
-		System.out.println("message recived: '" + message + "'");
-		if(message .equals("start") && activated == false){
-			activated = true;
-			System.out.println("activated: " + activated);
-			cmd.stop();
-			bot.setMov("st");
-			int dir = 0;
-			bot.setDir(dir);
-			cmd.scan();
-			ComPack scan = com.makeComPack();
-			String result = scan.getMessage(); 
-			scan(result,dir);
-			sim.update();
-			findRoute();
-			System.out.println("setup success");
-		}
-		else{
-			System.out.println("setup fail");
-			System.out.println("message recived: '" + message + "'");
-			System.out.println("activated: " + activated);
-			}
-		
+	
+		cmd.start();
+		activated = true;
+		complete = false;
+		cmd.fowardCon();
 		
 	}
 	
-	
+	/**
 	public void act(){
 		
 		ComPack comPack = com.makeComPack();
@@ -282,5 +258,5 @@ public class Action {
 		bot.setMov("bk");
 	}
 	
-	
+	*/
 }
