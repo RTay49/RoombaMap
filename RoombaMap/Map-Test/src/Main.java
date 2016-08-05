@@ -27,7 +27,7 @@ public class Main {
         complete = false;
         System.out.println("complete set to " + complete);
 	
-		
+		/**
         System.out.println("system engadeged");
 		while(complete != true){
 			 
@@ -38,7 +38,7 @@ public class Main {
 			action.act();
 			
 		}
-		
+		*/
 	}
 
 	
