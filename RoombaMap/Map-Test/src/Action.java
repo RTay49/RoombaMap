@@ -9,7 +9,7 @@ public class Action {
 	
 	private boolean complete;//is the map complete
 	
-	private Communication com;//Handles serial communications
+	private ComTest com;//Handles serial communications
 	
 	private Simulator sim;//Handles the internal simulation
 	
@@ -28,7 +28,7 @@ public class Action {
 		
 		activated = false;
 		complete = false;
-		com = new Communication();
+		com = new ComTest();
 		this.bot = sim.getBot();
 		bP = new BotPlot(bot);
 		
@@ -73,42 +73,16 @@ public void findSpaces(){
 	
 	Location location = bot.getLocation();
 	
+	int x = location.getXCord();
+	int y = location.getYCord();
 	
-		System.out.println("finding route");
-		List<Integer> freeSpaces = pf.findEmptySpace();
-		System.out.println("free spaces found");
-		
-		int fsl = freeSpaces.size();
-		System.out.println("free spaces list size: " + fsl);
-		int fs = freeSpaces.get(0);
-		System.out.println("free spaces pick: 0 which is: " + fs);
-		
-		if(fs == 0){
-			bot.setDir(0);
-			bot.setMov("fw");
-			cmd.fowardCon();
-		}
-		else if(fs == 1){
-			bot.setDir(0);
-			cmd.turnRightN(90);
-			bot.turnDirRight();
-			bot.setMov("fw");
-			cmd.fowardCon();
-		}
-		else if(fs == 2){
-			bot.setDir(2);
-			cmd.backwardCon();
-			bot.setMov("bk");
-
-		}
-		else if(fs == 3){
-			bot.setDir(0);
-			cmd.turnLeftN(90);
-			bot.turnDirLeft();
-			bot.setMov("fw");
-			cmd.fowardCon();
-			}
+	System.out.println("Bot location at " + x + "," + y + ".");
+	
+	List adjacentLocations = rMap.getFreeAdjacentLocations(location);
+	
 	}
+	
+		
 }
 	
 	/**
@@ -286,4 +260,4 @@ public void findSpaces(){
 	}
 	
 	*/
-}
+

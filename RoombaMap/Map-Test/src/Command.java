@@ -5,13 +5,13 @@ public class Command {
 	
 	
 	
-	private Communication com;
+	private ComTest com;
 	
 	private ArrayList<Integer> scanResults;
 	
 	private boolean wallDetect;
 	
-	public Command(Communication com){
+	public Command(ComTest com){
 		this.com = com;
 		wallDetect = false;
 		scanResults = new ArrayList<Integer>() {
