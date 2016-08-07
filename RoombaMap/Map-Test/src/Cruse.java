@@ -18,25 +18,73 @@ public class Cruse {
 		
 		{
 			
+			
 			if(wall){
-				pl.plotFreeSpace();
 				pl.plotWall();
-				cmd.fowardCon();
 			}
-			else{
-				pl.plotFreeSpace();
-			}
-			crusing()
+			pl.plotFreeSpace();
+			
+			crusing();
 		}
 	
 	public void crusing(){
 		
 		char wall = cmd.cruse();
 		
-		if()
+	
 		
 		
 		
 	}
+	
+	public Location convertToLoc(int dir){
+		
+		
+		LocationMaker lm = new LocationMaker();
+		
+		Location botLoc = bot.getLocation();
+		
+		int botx = botLoc.getXCord();
+		int boty = botLoc.getYCord();
+		
+		if(dir == 0){
+			Location location = lm.makeLocationXY(botx, boty+1);
+			return location;
+		}
+		else if (dir == 1){
+			Location location = lm.makeLocationXY(botx+1, boty+1);
+			return location;
+		}
+		else if (dir == 2){
+			Location location = lm.makeLocationXY(botx+1, boty);
+		}
+		else if (dir == 3){
+			Location location = lm.makeLocationXY(botx+1, boty-1);
+			return location;
+		}
+		else if (dir == 4){
+			Location location = lm.makeLocationXY(botx, boty-1);
+			return location;
+		}
+		else if (dir == 5){
+			Location location = lm.makeLocationXY(botx-1, boty-1);
+			return location;
+		}
+		else if (dir == 6){
+			Location location = lm.makeLocationXY(botx-1, boty);
+			return location;
+		}
+		else if (dir == 7){
+			Location location = lm.makeLocationXY(botx-1, boty+1);
+			return location;
+		}
+		
+		
+		return null;
+		
+		
+		}
+
+	
 
 }

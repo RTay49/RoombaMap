@@ -118,7 +118,7 @@ public List<Integer> findSpaces(){
 
 public int convertToDir(Location bot, Location location){
 	
-	int dir;
+	int dir = 8;//impossible value
 	
 	int x = location.getXCord() - bot.getXCord();
 	int y = location.getYCord() - bot.getYCord();
@@ -129,10 +129,27 @@ public int convertToDir(Location bot, Location location){
 	else if (x == 1 && y == 1){
 		dir = 1;
 	}
-	else
+	else if (x == 1 && y == 0){
+		dir = 2;
+	}
+	else if (x == 1 && y == -1){
+		dir = 3;
+	}
+	else if (x == 0 && y == -1){
+		dir = 4;
+	}
+	else if (x == -1 && y == -1){
+		dir = 5;
+	}
+	else if (x == -1 && y == 0){
+		dir = 6;
+	}
+	else if (x == -1 && y == 1){
+		dir = 7;
+	}
 	
 	
-	
+	return dir;
 	
 	
 	}
