@@ -20,55 +20,74 @@ public class Command {
 	}
 
 	public void start(){
-		com.writeMessage("s");
+		String send = "t";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 		checkComplete();
 	}
 	
 	public void stop(){
-		com.writeMessage("s");
+		String send = "s";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 		checkComplete();
 	}
 	public void fowardCon(){
-		com.writeMessage("f");
-		checkComplete();
+		String send = "f";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 	}
 	public void fowardN(int n){
-		com.writeMessage("w");
+		String send = "w";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 		checkReady();
 		com.writeMessage(""+n);
 		checkComplete();
 	}
 	public void backwardCon(){
-		com.writeMessage("b");
-		checkComplete();
+		String send = "b";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 	}
 	public void backwardN(int n){
-		com.writeMessage("s");
+		String send = "s";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 		checkReady();
 		com.writeMessage(""+n);
 		checkComplete();
 	}
 	public void turnRightCon(){
-		com.writeMessage("r");
+		String send = "r";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 	}
 	public void turnRightN(int n){
-		com.writeMessage("d");
+		String send = "d";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 		checkReady();
 		com.writeMessage(""+n);
 		checkComplete();
 	}
 	public void turnLeftCon(){
-		com.writeMessage("l");
-		checkComplete();
+		String send = "l";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 	}
 	public void turnLeftN(int n){
-		com.writeMessage("a");
+		String send = "a";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 		checkReady();
 		com.writeMessage(""+n);
 		checkComplete();
 	}
 	public void scan(){
-		com.writeMessage("p");
+		String send = "p";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 		checkReady();
 		String message = com.listenForMessage();
 		if (message == "y"){
@@ -94,19 +113,36 @@ public class Command {
 			checkComplete();
 		}
 	}
+	
+	public void checkAcknowlege(String check){
+		String message = com.listenForMessage();
+		if(!message.equals(check)){
+			com.writeMessage("reset");
+		}
+	}
+	
+	
 	public void checkReady(){
 		String message = com.listenForMessage();
-		if(!message.equals("ready")){
+		if(!message.equals("?")){
 			com.writeMessage("reset");
 		}
 	}
 	
 	public void checkComplete(){
 		String message = com.listenForMessage();
-		if(!message.equals("d")){
-			System.out.println("did not recive responce");
-			System.out.println("message recived:" + message);
+		if(!message.equals("!")){
+			com.writeMessage("reset");
 		}
+	}
+	public boolean isWallDetected(){
+		return wallDetect;
+	}
+	public ArrayList<Integer> getScanResults(){
+		return scanResults;
+	}
+	public void clearScanResults(){
+		scanResults.clear();
 	}
 
 }

@@ -1,26 +1,25 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Action {
 	
 	
-	private boolean activated;
+	private boolean activated;//is the robot active
 	
-	private boolean complete; 
+	private boolean complete;//is the map complete
 	
-	private Communication com;
+	private Communication com;//Handles serial communications
 	
-	private Simulator sim; 
+	private Simulator sim;//Handles the internal simulation
 	
-	private Robot bot;
+	private Robot bot;//Keeps track of the Robot
 	
-	private BotPlot bP;
+	private BotPlot bP;//Plots the Robot on the map.
 	
-	private Plot plot;
+	private Plot plot;//Plots everything else.
 	
-	private PathFinder pf;
-	
-	private Command cmd;
+	private Command cmd;//SendsCommands to the Robot
 	
 	public Action(Simulator sim){
 	
@@ -33,8 +32,6 @@ public class Action {
 		this.bot = sim.getBot();
 		bP = new BotPlot(bot);
 		
-		pf = new PathFinder(sim.getrMap(), bot);
-		
 		plot = new Plot(sim);
 		
 		cmd = new Command(com);
@@ -45,9 +42,74 @@ public class Action {
 		cmd.start();
 		activated = true;
 		complete = false;
-		cmd.fowardCon();
+		bot.setDir(0);
+		scan(0);
+		findSpaces();
+
 		
 	}
+	
+	public void scan(int dir){
+		
+		
+		cmd.scan();
+		boolean wall = cmd.isWallDetected();
+		
+		if(wall){
+			ArrayList<Integer> result = cmd.getScanResults();
+			for(Integer r : result){
+				plot.plotWall(r, dir);
+			}
+		}
+		
+	sim.update();
+	}
+	
+
+public void findSpaces(){
+		
+	
+	RMap rMap = sim.getrMap();
+	
+	Location location = bot.getLocation();
+	
+	
+		System.out.println("finding route");
+		List<Integer> freeSpaces = pf.findEmptySpace();
+		System.out.println("free spaces found");
+		
+		int fsl = freeSpaces.size();
+		System.out.println("free spaces list size: " + fsl);
+		int fs = freeSpaces.get(0);
+		System.out.println("free spaces pick: 0 which is: " + fs);
+		
+		if(fs == 0){
+			bot.setDir(0);
+			bot.setMov("fw");
+			cmd.fowardCon();
+		}
+		else if(fs == 1){
+			bot.setDir(0);
+			cmd.turnRightN(90);
+			bot.turnDirRight();
+			bot.setMov("fw");
+			cmd.fowardCon();
+		}
+		else if(fs == 2){
+			bot.setDir(2);
+			cmd.backwardCon();
+			bot.setMov("bk");
+
+		}
+		else if(fs == 3){
+			bot.setDir(0);
+			cmd.turnLeftN(90);
+			bot.turnDirLeft();
+			bot.setMov("fw");
+			cmd.fowardCon();
+			}
+	}
+}
 	
 	/**
 	public void act(){
@@ -142,42 +204,7 @@ public class Action {
 		
 	}
 	
-	public void scan(String message, int dir){
-		
 	
-		
-			if (message.equals("nw")){
-				plot.plotFreeSpace();
-			}
-		
-			else if(message.equals("ft")){
-				botTurnRight();
-				plot.plotFreeSpace();
-				plot.plotWall(0,dir);
-			}
-			else if(message.equals("fr")){
-				plot.plotWall(0,dir);
-				plot.plotWall(1,dir);
-				botTurnLeft();
-				plot.plotFreeSpace();
-			}
-			else if(message.equals("rt")){
-				plot.plotFreeSpace();
-				plot.plotWall(1,dir);
-			}
-			else if(message.equals("lt")){
-				plot.plotFreeSpace();
-				plot.plotWall(3,dir);
-			}
-			else if(message.equals("fl")){
-				plot.plotWall(0,dir);
-				plot.plotWall(3,dir);
-				botTurnRight();
-				plot.plotFreeSpace();
-			}
-		sim.update();
-		
-	}
 
 	public boolean isActivated() {
 		return activated;
