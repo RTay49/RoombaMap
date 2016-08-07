@@ -20,7 +20,7 @@ public class Command {
 	}
 
 	public void start(){
-		com.writeMessage("start");
+		com.writeMessage("s");
 		checkComplete();
 	}
 	
@@ -103,8 +103,9 @@ public class Command {
 	
 	public void checkComplete(){
 		String message = com.listenForMessage();
-		if(!message.equals("done")){
-			com.writeMessage("reset");
+		if(!message.equals("d")){
+			System.out.println("did not recive responce");
+			System.out.println("message recived:" + message);
 		}
 	}
 

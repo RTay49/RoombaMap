@@ -14,20 +14,24 @@ public class Communication {
 		
 		
 		try {
+			System.out.println("listening");
 			sl.listen();
 			String message = sl.getLastMessage();
-			
+			boolean waiting = true;
+			while (waiting){
+			//System.out.println("waiting... com message recived: " + message);
 			if(message != null){
-				sl.resetLastMessage();
+				waiting = false;
+				return message;	
+				
+		} 
 			}
-			return message;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		
-		
+			}catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+		return null;
 	}
 	
 	
@@ -36,6 +40,7 @@ public class Communication {
 	public void writeMessage(String message){
 		
 		sw.write(message);
+		sw.write(".");
 		
 		
 	}
