@@ -58,37 +58,34 @@ public class Command {
 		com.writeMessage(""+n);
 		checkComplete();
 	}
-	public void turnRightCon(){
-		String send = "r";
+	public void turnRight45(){
+		String send = "e";
 		com.writeMessage(send);
 		checkAcknowlege(send);
+		checkComplete();
 	}
-	public void turnRightN(int n){
+	public void turnRight90(){
 		String send = "d";
 		com.writeMessage(send);
 		checkAcknowlege(send);
-		checkReady();
-		com.writeMessage(""+n);
 		checkComplete();
 	}
-	public void turnLeftCon(){
-		String send = "l";
+	public void turnLeft45(){
+		String send = "q";
 		com.writeMessage(send);
 		checkAcknowlege(send);
+		checkComplete();
 	}
 	public void turnLeftN(int n){
 		String send = "a";
 		com.writeMessage(send);
 		checkAcknowlege(send);
-		checkReady();
-		com.writeMessage(""+n);
 		checkComplete();
 	}
 	public void scan(){
 		String send = "p";
 		com.writeMessage(send);
 		checkAcknowlege(send);
-		checkReady();
 		String message = com.listenForMessage();
 		if (message == "y"){
 			wallDetect = true;
@@ -97,7 +94,7 @@ public class Command {
 			
 				while(!complete){
 				 message = com.listenForMessage();
-				if (message == "c"){
+				if (message == "!"){
 					complete = true;
 				}
 				else{
@@ -121,13 +118,13 @@ public class Command {
 		}
 	}
 	
-	
 	public void checkReady(){
 		String message = com.listenForMessage();
 		if(!message.equals("?")){
 			com.writeMessage("reset");
 		}
 	}
+	
 	
 	public void checkComplete(){
 		String message = com.listenForMessage();

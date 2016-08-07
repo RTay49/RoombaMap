@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +22,13 @@ public class Action {
 	
 	private Command cmd;//SendsCommands to the Robot
 	
+	
+	private boolean wall;
+	
+	private Location botLoc;
+	
+	private RMap rMap;
+	
 	public Action(Simulator sim){
 	
 		
@@ -35,6 +43,12 @@ public class Action {
 		plot = new Plot(sim);
 		
 		cmd = new Command(com);
+		
+		botLoc = bot.getLocation();
+		
+		rMap = sim.getrMap();
+		
+		setUp();
 	}
 	
 	public void setUp(){
@@ -44,8 +58,12 @@ public class Action {
 		complete = false;
 		bot.setDir(0);
 		scan(0);
-		findSpaces();
-
+		List<Integer> freedir = findSpaces();
+		Collections.sort(freedir);
+		int dir = freedir.get(0);
+		turnbot(dir);
+		Cruse.start(location, dir, wall);
+	
 		
 	}
 	
@@ -53,7 +71,7 @@ public class Action {
 		
 		
 		cmd.scan();
-		boolean wall = cmd.isWallDetected();
+		wall = cmd.isWallDetected();
 		
 		if(wall){
 			ArrayList<Integer> result = cmd.getScanResults();
@@ -66,25 +84,60 @@ public class Action {
 	}
 	
 
-public void findSpaces(){
+public List<Integer> findSpaces(){
 		
-	
-	RMap rMap = sim.getrMap();
+
 	
 	Location location = bot.getLocation();
 	
 	int x = location.getXCord();
 	int y = location.getYCord();
 	
-	System.out.println("Bot location at " + x + "," + y + ".");
+	List<Location> adjacentLocations = rMap.getFreeAdjacentLocations(location);
+	List<Integer> adjacentDir = new ArrayList<Integer>();   
 	
-	List adjacentLocations = rMap.getFreeAdjacentLocations(location);
+	
+	for(Location l: adjacentLocations){
+		
+		int dir = convertToDir(location, l);
+		adjacentDir.add(dir);
+		
+	}
+	
+	if(!adjacentDir.isEmpty()){
+		return adjacentDir;
+	}
+	else{
+		return null;
+	}
 	
 	}
 	
 		
-}
+
+
+public int convertToDir(Location bot, Location location){
 	
+	int dir;
+	
+	int x = location.getXCord() - bot.getXCord();
+	int y = location.getYCord() - bot.getYCord();
+	
+	if(x == 0 && y == 1){
+		dir = 0;
+	}
+	else if (x == 1 && y == 1){
+		dir = 1;
+	}
+	else
+	
+	
+	
+	
+	
+	}
+
+}
 	/**
 	public void act(){
 		

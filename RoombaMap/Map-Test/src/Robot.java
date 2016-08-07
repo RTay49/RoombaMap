@@ -7,6 +7,8 @@ public class Robot {
 	private String mov;
 	
 	private int dir;//0 = up, 1 = right, 2 = down , 3 = left.
+	
+	private int sensorDir;
 	 
 	 private Location location;
 	 
@@ -26,25 +28,6 @@ public class Robot {
 	 
 	 }
 	 
-	 public void turnDirRight(){
-		if(dir != 3){
-			dir = dir + 1;
-		}
-		else{
-			dir = 0;
-		}
-	 }
-	 
-	 public void turnDirLeft(){
-			if(dir != 0){
-				dir = dir - 1;
-			}
-			else{
-				dir = 3;
-			}
-		 }
-	 
-	 
 	 
 	 
 	 
@@ -59,7 +42,22 @@ public class Robot {
 	}
 	public void setDir(int dir) {
 		this.dir = dir;
+		updateSensorDir(dir);
 	}
+	
+	public void updateSensorDir(int dir){
+		
+		for(int i = 0; i < 3 ; i++){
+			
+			if(dir == 0){
+				dir = 8;
+			}
+			dir--;
+		}
+		
+		
+	}
+	
 	public RMap getrMap() {
 		return rMap;
 	}
