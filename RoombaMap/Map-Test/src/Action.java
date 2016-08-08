@@ -1,5 +1,4 @@
-
-
+import java.util.List;
 
 public class Action {
 	
@@ -9,6 +8,14 @@ public class Action {
 	public Action (Robot bot){
 		cmd = new Command();
 		this.bot = bot;
+	}
+	
+	public void start(){
+		cmd.start();
+	}
+	public List<Integer> scan(){
+		List<Integer> scan = cmd.scan();
+		return scan;
 	}
 	
 	public void forward(){

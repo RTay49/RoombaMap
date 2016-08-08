@@ -20,8 +20,6 @@ public class SetUp {
 	
 	private Plot plot;//Plots everything else.
 	
-	private Command cmd;//SendsCommands to the Robot
-	
 	private Action act;
 	
 	private boolean wall;
@@ -59,8 +57,10 @@ public class SetUp {
 	}
 	
 	public void setUp(){
-	
-		cmd.start();
+		
+		System.out.println("starting cmd");
+		act.start();
+		System.out.println("cmd started");
 		activated = true;
 		complete = false;
 		bot.setDir(0);
@@ -68,7 +68,7 @@ public class SetUp {
 		List<Integer> freedir = findSpaces();
 		Collections.sort(freedir);
 		int dir = freedir.get(0);
-		act.turnbot(dir);
+		act.turnBot(dir);
 		cr.start (wall);
 	
 		
@@ -77,17 +77,14 @@ public class SetUp {
 	public void scan(int dir){
 		
 		
-		cmd.scan();
-		wall = cmd.isWallDetected();
+		 List<Integer> scans = act.scan();
 		
-		if(wall){
-			ArrayList<Integer> result = cmd.getScanResults();
-			for(Integer r : result){
-				plot.plotWall(r, dir);
+		if(!scans.isEmpty()){
+			for(Integer scan: scans){
+				plot.plotWall(dir);
 			}
 		}
-		
-	sim.update();
+			
 	}
 	
 

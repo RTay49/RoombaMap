@@ -20,7 +20,7 @@ public class Cruise {
 		dir = bot.getDir();
 			
 			if(wall){
-				pl.plotWall_S(dir);
+				pl.plotWallS(dir);
 				wallCruiseing();
 			}
 			else{
@@ -39,7 +39,7 @@ public class Cruise {
 			
 			char wall = act.cruise();
 		
-			if (wall == 'o');{
+			if (wall == 'o'){
 				fs_R_Turn();
 				cruiseing = false;
 			}
@@ -47,11 +47,11 @@ public class Cruise {
 				fs_R_Corner();
 				cruiseing = false;
 			}
-			else if(wall == "k"){
+			else if(wall == 'k'){
 				start(true);
 				cruiseing = false;
 			}
-			bot.moved(dir);
+			bot.moveBot(dir);
 			pl.plotFreeSpace();
 			cruiseing = isBeen();
 		}
@@ -65,7 +65,7 @@ public class Cruise {
 			
 			char wall = act.cruise();
 		
-			if (wall == 'o');{
+			if (wall == 'o'){
 				wall_R_Turn();
 				cruiseing = false;
 			}
@@ -73,11 +73,11 @@ public class Cruise {
 				wall_R_Turn();
 				cruiseing = false;
 			}
-			else if(wall = "m"){
+			else if(wall == 'm'){
 				wall_L_Turn();
 				cruiseing = false;
 			}
-			bot.moved(dir);
+			bot.moveBot(dir);
 			pl.plotWallS(dir);
 			pl.plotFreeSpace();
 			cruiseing = isBeen();
@@ -106,7 +106,17 @@ public class Cruise {
 	}
 	
 	
-	
+	public boolean isBeen(){
+		Location location = convertToLoc(bot.getDir());
+		Object frontSpace = rMap.getObjectAt(location);
+		if(frontSpace != null){
+			return false;
+		}
+		else{
+			return true;
+		}
+		
+	}
 	
 	
 	
@@ -155,7 +165,6 @@ public class Cruise {
 			Location location = lm.makeLocationXY(botx-1, boty+1);
 			return location;
 		}
-		
 		
 		return null;
 		

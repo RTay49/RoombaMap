@@ -13,29 +13,14 @@ public class Main {
 		
 
 		
-        System.out.println("loading Action");
+        System.out.println("Setting up");
         SetUp setUp = new SetUp();
-        System.out.println("action loaded");
-        
-        System.out.println("action set up");
-        System.out.println("awaiting start responce...");
-        System.out.println("responce recived");
+        System.out.println("set up");
+       
 		
         complete = false;
         System.out.println("complete set to " + complete);
-	
-		/**
-        System.out.println("system engadeged");
-		while(complete != true){
-			 
-			complete = action.isComplete();
-			System.out.println("complete set to " + complete);
-			System.out.println("system engadeged");
-			
-			action.act();
-			
-		}
-		*/
+
 	}
 
 		

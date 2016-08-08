@@ -7,15 +7,11 @@ public class Command {
 	
 	private ComTest com;
 	
-	private ArrayList<Integer> scanResults;
-	
 	private boolean wallDetect;
 	
 	public Command(){
 		com = new ComTest();
 		wallDetect = false;
-		scanResults = new ArrayList<Integer>() {
-		};
 	
 	}
 
@@ -82,33 +78,25 @@ public class Command {
 		
 	}
 	
-	public void scan(){
+	public List<Integer> scan(){
 		String send = "p";
+		List<Integer> scanResults = new ArrayList<Integer>();  
 		com.writeMessage(send);
 		checkAcknowlege(send);
 		String message = com.listenForMessage();
-		if (message == "y"){
-			wallDetect = true;
 			
-			boolean complete  = false;
-			
-				while(!complete){
+		while(true){
 				 message = com.listenForMessage();
 				if (message == "!"){
-					complete = true;
+					break;
 				}
 				else{
 					int scanResult = Integer.parseInt(message); 
 					scanResults.add(scanResult);
-				}
-				
-			}
-			
-			
+				}	
 		}
-		else{
-			checkComplete();
-		}
+			
+			return scanResults;
 	}
 	
 	public void checkAcknowlege(String check){
@@ -134,12 +122,6 @@ public class Command {
 	}
 	public boolean isWallDetected(){
 		return wallDetect;
-	}
-	public ArrayList<Integer> getScanResults(){
-		return scanResults;
-	}
-	public void clearScanResults(){
-		scanResults.clear();
 	}
 
 }
