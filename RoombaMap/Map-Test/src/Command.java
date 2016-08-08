@@ -11,8 +11,8 @@ public class Command {
 	
 	private boolean wallDetect;
 	
-	public Command(ComTest com){
-		this.com = com;
+	public Command(){
+		com = new ComTest();
 		wallDetect = false;
 		scanResults = new ArrayList<Integer>() {
 		};
@@ -76,7 +76,7 @@ public class Command {
 		checkAcknowlege(send);
 		checkComplete();
 	}
-	public void turnLeftN(int n){
+	public void turnLeft90(){
 		String send = "a";
 		com.writeMessage(send);
 		checkAcknowlege(send);

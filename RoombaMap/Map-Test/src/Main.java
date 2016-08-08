@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	private static Simulator sim;
+	
 	
 	private static boolean complete;
 	
@@ -11,17 +11,14 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		
-		System.out.println("loading sim...");
-        sim = new Simulator(101,101);
-        System.out.println("sim loaded");
+
 		
         System.out.println("loading Action");
-        Action action = new Action(sim);
+        SetUp setUp = new SetUp();
         System.out.println("action loaded");
         
         System.out.println("action set up");
         System.out.println("awaiting start responce...");
-        action.setUp();
         System.out.println("responce recived");
 		
         complete = false;
@@ -41,11 +38,6 @@ public class Main {
 		*/
 	}
 
-	
-	public static Simulator getSim(){
 		
-		return sim;
-		
-	}
 	
 }

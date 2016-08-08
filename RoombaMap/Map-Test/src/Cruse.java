@@ -1,41 +1,118 @@
 
 public class Cruse {
 	
-	private Command cmd;
+	private Action act;
 	private Plot pl;
 	private Robot bot;
 	private RMap rMap;
+	private int dir;
 	
 	
-	public Cruse (Command cmd, Plot pl, Robot bot, RMap rMap){
-		this.cmd = cmd;
+	public Cruse (Action act, Plot pl, Robot bot, RMap rMap){
+		this.act = act;
 		this.pl = pl;
 		this.bot = bot;
 		this.rMap = rMap;
 	}
 	
-	public void start(Location location, int dir, boolean wall){
+	public void start(boolean wall){
 		
-		{
-			
+		dir = bot.getDir();
 			
 			if(wall){
-				pl.plotWall();
+				pl.plotWall_S(dir);
+				wallCrusing();
+			}
+			else{
+				fsCrusing();
 			}
 			pl.plotFreeSpace();
+			act.forward();
 			
-			crusing();
+			
 		}
 	
-	public void crusing(){
+	private void fsCrusing(){
+		boolean crusing = true;
 		
-		char wall = cmd.cruse();
+		while(crusing){
+			
+			char wall = act.cruse();
 		
+			if (wall == 'o');{
+				fs_R_Turn();
+				crusing = false;
+			}
+			else if(wall == 'j'){
+				fs_R_Corner();
+				crusing = false;
+			}
+			else if(wall = "k"){
+				start();
+				crusing = false;
+			}
+			bot.moved(dir);
+			pl.plotFreeSpace();
+			crusing = isBeen();
+		}
+	}
+	
+	private void wallCrusing(){
+	
+		boolean crusing = true;
+		
+		while(crusing){
+			
+			char wall = act.cruse();
+		
+			if (wall == 'o');{
+				wall_R_Turn();
+				crusing = false;
+			}
+			else if(wall == 'j'){
+				wall_R_Turn();
+				crusing = false;
+			}
+			else if(wall = "m"){
+				wall_L_Turn();
+				crusing = false;
+			}
+			bot.moved(dir);
+			pl.plotWallS(dir);
+			pl.plotFreeSpace();
+			crusing = isBeen();
+			
+		}
+	}
+	
+	private void fs_R_Turn(){
+		act.turnRight(dir);
+		start(true);
+	}
+	private void fs_R_Corner(){
+		pl.plotWallC(dir);
+		act.turnRight(dir);
+		start(true);
+	}
+	private void wall_R_Turn(){
+		pl.plotWallC(dir);
+		act.turnRight(dir);
+		start(true);
+	}
+	private void wall_L_Turn(){
+		act.forward(10);
+		act.turnLeft(dir);
+		start(true);
+	}
+	
+	
+	
+	
+	
 	
 		
 		
 		
-	}
 	
 	public Location convertToLoc(int dir){
 		
