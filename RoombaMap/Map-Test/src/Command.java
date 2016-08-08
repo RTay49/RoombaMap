@@ -32,6 +32,11 @@ public class Command {
 		checkAcknowlege(send);
 		checkComplete();
 	}
+	public char listen(){
+		String message = com.listenForMessage();
+		char result = message.charAt(0);
+		return result;
+	}
 	public void fowardCon(){
 		String send = "f";
 		com.writeMessage(send);
@@ -58,30 +63,25 @@ public class Command {
 		com.writeMessage(""+n);
 		checkComplete();
 	}
-	public void turnRight45(){
-		String send = "e";
-		com.writeMessage(send);
-		checkAcknowlege(send);
-		checkComplete();
-	}
-	public void turnRight90(){
+	public void turnRight(int dis){
 		String send = "d";
 		com.writeMessage(send);
 		checkAcknowlege(send);
+		checkReady();
+		com.writeMessage(""+dis);
 		checkComplete();
 	}
-	public void turnLeft45(){
-		String send = "q";
-		com.writeMessage(send);
-		checkAcknowlege(send);
-		checkComplete();
-	}
-	public void turnLeft90(){
+	
+	public void turnLeft(int dis){
 		String send = "a";
 		com.writeMessage(send);
 		checkAcknowlege(send);
+		checkReady();
+		com.writeMessage(""+dis);
 		checkComplete();
+		
 	}
+	
 	public void scan(){
 		String send = "p";
 		com.writeMessage(send);

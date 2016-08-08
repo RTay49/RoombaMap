@@ -30,6 +30,8 @@ public class SetUp {
 	
 	private RMap rMap;
 	
+	private Cruise cr;
+	
 	
 	
 	public SetUp(){
@@ -51,6 +53,8 @@ public class SetUp {
 		
 		rMap = sim.getrMap();
 		
+		cr = new Cruise(act, plot, bot, rMap);
+		
 		setUp();
 	}
 	
@@ -64,8 +68,8 @@ public class SetUp {
 		List<Integer> freedir = findSpaces();
 		Collections.sort(freedir);
 		int dir = freedir.get(0);
-		turnbot(dir);
-		Cruse.start (dir, wall);
+		act.turnbot(dir);
+		cr.start (wall);
 	
 		
 	}

@@ -1,5 +1,5 @@
 
-public class Cruse {
+public class Cruise {
 	
 	private Action act;
 	private Plot pl;
@@ -8,7 +8,7 @@ public class Cruse {
 	private int dir;
 	
 	
-	public Cruse (Action act, Plot pl, Robot bot, RMap rMap){
+	public Cruise (Action act, Plot pl, Robot bot, RMap rMap){
 		this.act = act;
 		this.pl = pl;
 		this.bot = bot;
@@ -21,10 +21,10 @@ public class Cruse {
 			
 			if(wall){
 				pl.plotWall_S(dir);
-				wallCrusing();
+				wallCruiseing();
 			}
 			else{
-				fsCrusing();
+				fsCruiseing();
 			}
 			pl.plotFreeSpace();
 			act.forward();
@@ -32,77 +32,77 @@ public class Cruse {
 			
 		}
 	
-	private void fsCrusing(){
-		boolean crusing = true;
+	private void fsCruiseing(){
+		boolean cruiseing = true;
 		
-		while(crusing){
+		while(cruiseing){
 			
-			char wall = act.cruse();
+			char wall = act.cruise();
 		
 			if (wall == 'o');{
 				fs_R_Turn();
-				crusing = false;
+				cruiseing = false;
 			}
 			else if(wall == 'j'){
 				fs_R_Corner();
-				crusing = false;
+				cruiseing = false;
 			}
-			else if(wall = "k"){
-				start();
-				crusing = false;
+			else if(wall == "k"){
+				start(true);
+				cruiseing = false;
 			}
 			bot.moved(dir);
 			pl.plotFreeSpace();
-			crusing = isBeen();
+			cruiseing = isBeen();
 		}
 	}
 	
-	private void wallCrusing(){
+	private void wallCruiseing(){
 	
-		boolean crusing = true;
+		boolean cruiseing = true;
 		
-		while(crusing){
+		while(cruiseing){
 			
-			char wall = act.cruse();
+			char wall = act.cruise();
 		
 			if (wall == 'o');{
 				wall_R_Turn();
-				crusing = false;
+				cruiseing = false;
 			}
 			else if(wall == 'j'){
 				wall_R_Turn();
-				crusing = false;
+				cruiseing = false;
 			}
 			else if(wall = "m"){
 				wall_L_Turn();
-				crusing = false;
+				cruiseing = false;
 			}
 			bot.moved(dir);
 			pl.plotWallS(dir);
 			pl.plotFreeSpace();
-			crusing = isBeen();
+			cruiseing = isBeen();
 			
 		}
 	}
 	
 	private void fs_R_Turn(){
-		act.turnRight(dir);
+		act.turnRight(2);
 		start(true);
 	}
 	private void fs_R_Corner(){
 		pl.plotWallC(dir);
-		act.turnRight(dir);
+		act.turnRight(2);
 		start(true);
 	}
 	private void wall_R_Turn(){
 		pl.plotWallC(dir);
-		act.turnRight(dir);
+		act.turnRight(2);
 		start(true);
 	}
 	private void wall_L_Turn(){
 		act.forward(10);
-		act.turnLeft(dir);
-		start(true);
+		act.turnLeft(2);
+		start(false);
 	}
 	
 	

@@ -17,21 +17,43 @@ public class Action {
 	public void forward(int dis){
 		cmd.fowardN(dis);
 	}
-	public void turnRight(int dir){
+	public void turnRight(int dis){
 		cmd.stop();
-		cmd.turnRight90();
-		setDirR(dir);
+		cmd.turnRight(dis);
+		setDirR(dis);
 	}
-	public void turnLeft(int dir){
+	public void turnLeft(int dis){
 		cmd.stop();
-		cmd.turnLeft90();
-		setDirL(dir);
+		cmd.turnLeft(dis);
+		setDirL(dis);
 	}
 	
-	private void setDirR(int dir){
+	public char cruise(){
 		
-		int newDir = dir; 
-		for(int i = 0; i > 2; i++){
+		char result = cmd.listen();
+		return result;
+		
+	}
+	
+	public void turnBot(int dir){
+		int oldDir = bot.getDir();
+		if(oldDir == 0){
+			oldDir = 8;
+		}
+		if(oldDir > dir){
+			turnLeft(oldDir - dir);
+		}
+		if(oldDir < dir){
+			turnRight(dir - oldDir);
+		}
+		
+		
+	}
+	
+	private void setDirR(int dis){
+		
+		int newDir = bot.getDir();
+		for(int i = 0; i > dis; i++){
 			
 			if(newDir == 8){
 				newDir = 0;
@@ -41,10 +63,10 @@ public class Action {
 		}
 		bot.setDir(newDir);
 	}
-	private void setDirL(int dir){
+	private void setDirL(int dis){
 		
-		int newDir = dir; 
-		for(int i = 0; i > 2; i++){
+		int newDir = bot.getDir();
+		for(int i = 0; i > dis; i++){
 			
 			if(newDir == 0){
 				newDir = 8;
