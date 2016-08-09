@@ -21,13 +21,17 @@ public class Robot {
 	     }
 	     location = newLocation;
 	     rMap.place(this, newLocation);
+	     System.out.println("Bot location:" + newLocation.getXCord() + "," + newLocation.getYCord() + ".");
 	 
 	 }
 	 
 	 
 	 
 	 public void moveBot(int dir){
+		 System.out.println("getting location");
 		 location = convertToLoc(dir);
+		 System.out.println("Setting bot to location " + location.getXCord() + "," + location.getYCord() + ".");
+		 setLocation(location);
 	 }
 	 
 	 
@@ -65,6 +69,7 @@ public class Robot {
 		}
 		else if (dir == 2){
 			Location location = lm.makeLocationXY(botx+1, boty);
+			return location;
 		}
 		else if (dir == 3){
 			Location location = lm.makeLocationXY(botx+1, boty-1);

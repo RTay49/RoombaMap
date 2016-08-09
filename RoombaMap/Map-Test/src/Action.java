@@ -60,7 +60,7 @@ public class Action {
 	private void setDirR(int dis){
 		
 		int newDir = bot.getDir();
-		for(int i = 0; i > dis; i++){
+		for(int i = 0; i < dis; i++){
 			
 			if(newDir == 8){
 				newDir = 0;
@@ -68,12 +68,13 @@ public class Action {
 			
 			newDir++;
 		}
+		System.out.println("changing bot to direction: " + newDir +".");
 		bot.setDir(newDir);
 	}
 	private void setDirL(int dis){
 		
 		int newDir = bot.getDir();
-		for(int i = 0; i > dis; i++){
+		for(int i = 0; i < dis; i++){
 			
 			if(newDir == 0){
 				newDir = 8;
@@ -81,6 +82,7 @@ public class Action {
 			
 			newDir--;
 		}
+		System.out.println("changing bot to direction: " + newDir +".");
 		bot.setDir(newDir);
 	}
 

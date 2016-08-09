@@ -25,6 +25,7 @@ public class Plot {
 	public void plotWall(int dir){
 		Location location = convertToLoc(dir);
 		sim.addWall(location);
+		sim.update();
 	}
 	
 	public void plotWallS(int dir){
@@ -37,6 +38,8 @@ public class Plot {
 		
 		Location location = convertToLoc(dir-2);
 		sim.addWall(location);
+		System.out.println("Wall plotted at:" + location.getXCord() + "," + location.getYCord() );
+		sim.update();
 		
 	}
 	
@@ -47,6 +50,8 @@ public class Plot {
 		}
 		Location location = convertToLoc(dir-1);
 		sim.addWall(location);
+		System.out.println("Wall plotted at:" + location.getXCord() + "," + location.getYCord() );
+		sim.update();
 		
 	}
 	
@@ -55,6 +60,7 @@ public class Plot {
 		updateBotCord();	
 		sim.addFreeSpace(botLocation);
 		System.out.println("Freespace plotted at:" + botLocation.getXCord() + "," + botLocation.getYCord() );
+		sim.update();
 	}
 	
 	private void plotWallF(){	
@@ -102,6 +108,7 @@ public Location convertToLoc(int dir){
 		}
 		else if (dir == 2){
 			Location location = lm.makeLocationXY(botXCord+1, botYCord);
+			return location;
 		}
 		else if (dir == 3){
 			Location location = lm.makeLocationXY(botXCord+1, botYCord-1);

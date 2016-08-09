@@ -83,11 +83,12 @@ public class Command {
 		List<Integer> scanResults = new ArrayList<Integer>();  
 		com.writeMessage(send);
 		checkAcknowlege(send);
-		String message = com.listenForMessage();
 			
 		while(true){
-				 message = com.listenForMessage();
-				if (message == "!"){
+				String message = com.listenForMessage();
+				System.out.println(message);
+				if (message.equals("!")){
+					System.out.println("break!!");
 					break;
 				}
 				else{
@@ -96,7 +97,7 @@ public class Command {
 				}	
 		}
 			
-			return scanResults;
+		return scanResults;
 	}
 	
 	public void checkAcknowlege(String check){

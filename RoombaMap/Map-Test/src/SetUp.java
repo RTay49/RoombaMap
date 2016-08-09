@@ -63,25 +63,32 @@ public class SetUp {
 		System.out.println("cmd started");
 		activated = true;
 		complete = false;
-		bot.setDir(0);
-		scan(0);
+		
+		System.out.println("Scanning");
+		scan();
+		System.out.println("Scan complete");
+		
+		System.out.println("finding direction");
 		List<Integer> freedir = findSpaces();
 		Collections.sort(freedir);
 		int dir = freedir.get(0);
+		System.out.println("direction found");
+		
+		System.out.println("Turning bot");
 		act.turnBot(dir);
 		cr.start (wall);
-	
+		System.out.println("cruiseing");
 		
 	}
 	
-	public void scan(int dir){
+	public void scan(){
 		
 		
 		 List<Integer> scans = act.scan();
 		
 		if(!scans.isEmpty()){
 			for(Integer scan: scans){
-				plot.plotWall(dir);
+				plot.plotWall(scan);
 			}
 		}
 			

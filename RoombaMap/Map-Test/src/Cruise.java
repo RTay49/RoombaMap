@@ -16,30 +16,32 @@ public class Cruise {
 	}
 	
 	public void start(boolean wall){
-		
+		System.out.println("Cruise start wall:" + wall);
 		dir = bot.getDir();
-			
-			if(wall){
+		System.out.println("dir: " + dir);	
+		System.out.println("Cruise plotting free spaces and moving forward");
+		
+		pl.plotFreeSpace();
+		act.forward();
+		if(wall){
 				pl.plotWallS(dir);
 				wallCruiseing();
-			}
-			else{
-				fsCruiseing();
-			}
-			pl.plotFreeSpace();
-			act.forward();
-			
-			
+				
 		}
+		else{
+			fsCruiseing();
+		}			
+	}
 	
 	private void fsCruiseing(){
 		boolean cruiseing = true;
-		
+		System.out.println("free cruse");
 		while(cruiseing){
 			
 			char wall = act.cruise();
 		
 			if (wall == 'o'){
+				System.out.println("Turning right");
 				fs_R_Turn();
 				cruiseing = false;
 			}
@@ -59,12 +61,13 @@ public class Cruise {
 	
 	private void wallCruiseing(){
 	
+		System.out.println("wallCruise");
 		boolean cruiseing = true;
 		
 		while(cruiseing){
 			
 			char wall = act.cruise();
-		
+			
 			if (wall == 'o'){
 				wall_R_Turn();
 				cruiseing = false;
@@ -77,7 +80,9 @@ public class Cruise {
 				wall_L_Turn();
 				cruiseing = false;
 			}
+			System.out.println("moving bot dir:" + dir +".");
 			bot.moveBot(dir);
+			System.out.println("plotting walls and free spaces");
 			pl.plotWallS(dir);
 			pl.plotFreeSpace();
 			cruiseing = isBeen();
@@ -86,6 +91,7 @@ public class Cruise {
 	}
 	
 	private void fs_R_Turn(){
+		System.out.println("command right");
 		act.turnRight(2);
 		start(true);
 	}
@@ -144,6 +150,7 @@ public class Cruise {
 		}
 		else if (dir == 2){
 			Location location = lm.makeLocationXY(botx+1, boty);
+			return location;
 		}
 		else if (dir == 3){
 			Location location = lm.makeLocationXY(botx+1, boty-1);
