@@ -22,50 +22,48 @@ public class Plot {
 		
 	}
 	
-	public void plotWall(int wall, int dir){
-		 System.out.println("plotting wall with wall: " + wall + " and dir: " + dir +"." );
-		int result = 0;
-		int time = wall + dir;
-		
-		System.out.println("entering loop with time = " + time + ".");
-		for(int i=0 ; i < time; i++){
-			result++;
-			System.out.println("loop i = " + i + " result = " + result + ".");
-
-			if (result == 4){
-					result = 0;
-			}
-		System.out.println("loop i = " + i + " result = " + result + ".");
+	public void plotWall(int dir){
+		Location location = convertToLoc(dir);
+		sim.addWall(location);
+		sim.update();
+	}
+	
+	public void plotWallS(int dir){
+		if(dir == 0){
+			dir = 8;
+		}
+		else if(dir == 1){
+			dir = 9;
 		}
 		
-		System.out.println("loop finshed result = " + result + ".");
-		
-		if(result == 0){
-			plotWallFront();
-			System.out.println("front wall plotted");
-		}
-		else if (result == 1){
-			plotWallRight();
-			System.out.println("right wall plotted");
-		}
-		else if (result == 2){
-			plotWallBack();
-			System.out.println("back wall plotted");
-		}
-		else if (result == 3){
-			plotWallLeft();
-			System.out.println("left wall plotted");
-		}
+		Location location = convertToLoc(dir-2);
+		sim.addWall(location);
+		System.out.println("Wall plotted at:" + location.getXCord() + "," + location.getYCord() );
+		sim.update();
 		
 	}
+	
+	public void plotWallC(int dir){
+		plotWallS(dir);
+		if(dir == 0){
+			dir = 8;
+		}
+		Location location = convertToLoc(dir-1);
+		sim.addWall(location);
+		System.out.println("Wall plotted at:" + location.getXCord() + "," + location.getYCord() );
+		sim.update();
+		
+	}
+	
 	
 	public void plotFreeSpace(){
 		updateBotCord();	
 		sim.addFreeSpace(botLocation);
 		System.out.println("Freespace plotted at:" + botLocation.getXCord() + "," + botLocation.getYCord() );
+		sim.update();
 	}
 	
-	private void plotWallFront(){	
+	private void plotWallF(){	
 		updateBotCord();
 		Location wallLocation = lm.makeLocationXY(botXCord, botYCord+1); 
 		sim.addWall(wallLocation);
@@ -96,6 +94,44 @@ public class Plot {
 		botLocation = bot.getLocation();
 		botXCord = botLocation.getXCord();
 		botYCord = botLocation.getYCord();
+	}
+public Location convertToLoc(int dir){
+		
+		
+		if(dir == 0){
+			Location location = lm.makeLocationXY(botXCord, botYCord+1);
+			return location;
+		}
+		else if (dir == 1){
+			Location location = lm.makeLocationXY(botXCord+1, botYCord+1);
+			return location;
+		}
+		else if (dir == 2){
+			Location location = lm.makeLocationXY(botXCord+1, botYCord);
+			return location;
+		}
+		else if (dir == 3){
+			Location location = lm.makeLocationXY(botXCord+1, botYCord-1);
+			return location;
+		}
+		else if (dir == 4){
+			Location location = lm.makeLocationXY(botXCord, botYCord-1);
+			return location;
+		}
+		else if (dir == 5){
+			Location location = lm.makeLocationXY(botXCord-1, botYCord-1);
+			return location;
+		}
+		else if (dir == 6){
+			Location location = lm.makeLocationXY(botXCord-1, botYCord);
+			return location;
+		}
+		else if (dir == 7){
+			Location location = lm.makeLocationXY(botXCord-1, botYCord+1);
+			return location;
+		}
+		
+			return null;
 	}
 	
 

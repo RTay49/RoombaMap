@@ -15,9 +15,9 @@ public class Simulator
 {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
-    private static final int DEFAULT_WIDTH = 175;
+    private final int DEFAULT_WIDTH = 175;
     // The default depth of the grid.
-    private static final int DEFAULT_DEPTH = 135;
+    private final int DEFAULT_DEPTH = 135;
     
 
     
@@ -39,10 +39,6 @@ public class Simulator
     /**
      * Construct a simulation field with default size.
      */
-    public Simulator()
-    {
-        this(DEFAULT_DEPTH, DEFAULT_WIDTH);
-    }
     
     /**
      * Create a simulation field with the given size.
@@ -160,11 +156,11 @@ public class Simulator
 		this.view = view;
 	}
 
-	public static int getDefaultWidth() {
+	public int getDefaultWidth() {
 		return DEFAULT_WIDTH;
 	}
 
-	public static int getDefaultDepth() {
+	public int getDefaultDepth() {
 		return DEFAULT_DEPTH;
 	}
     

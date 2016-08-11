@@ -1,29 +1,38 @@
-import java.util.Scanner;
+
 
 public class Communication {
 
-	private Scanner sc;
+	private Serial serial;
 	
 	public Communication(){
-		
-		sc = new Scanner(System.in);
+		serial = new Serial();
 	}
 	
-	public ComPack makeComPack() {
-		
-		String message = sc.nextLine();
-	
-		ComPack comPack = new ComPack (message);
-		return comPack;
+	public void open(){
+		serial.open();
 	}
-
 	
-	
-	
-	public void sendMessage(String message){
+	public String listenForMessage(){
 		
-		System.out.println(message);
 		
+		
+		String message = "" + serial.read();
+		return message;
+		
+	}
+	
+	
+	
+	
+	public void writeMessage(String message){
+		serial.write(message);
+	
+	}
+	
+	public void reset(){
+		serial.write("r");
+		serial.close();
+		System.out.println("Serial closed");
 	}
 	
 }
