@@ -58,9 +58,9 @@ public class SetUp {
 	
 	public void setUp(){
 		
-		System.out.println("starting cmd");
+		System.out.println("starting");
 		act.start();
-		System.out.println("cmd started");
+		
 		activated = true;
 		complete = false;
 		

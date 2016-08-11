@@ -3,19 +3,33 @@ import java.util.List;
 
 public class Command {
 	
+	private String lastMessage;
+	private boolean newMessage;
 	
 	
-	private ComTest com;
+	private Communication com;
 	
 	private boolean wallDetect;
 	
 	public Command(){
-		com = new ComTest();
+		com = new Communication();
 		wallDetect = false;
+		com.open();
+		System.out.println("serial opened");
 	
+	}
+	
+	private boolean isnewMessage(String message){
+		if(message!= lastMessage){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public void start(){
+		System.out.println("cmd starting");
 		String send = "t";
 		com.writeMessage(send);
 		checkAcknowlege(send);
@@ -28,15 +42,22 @@ public class Command {
 		checkAcknowlege(send);
 		checkComplete();
 	}
-	public char listen(){
+	public char cruise(){
+		String send = "c";
+		com.writeMessage(send);
+		checkAcknowlege(send);
 		String message = com.listenForMessage();
+		System.out.println("cruise result:"+message);
 		char result = message.charAt(0);
+		System.out.println("returning:"+result);
+		checkComplete();
 		return result;
 	}
 	public void fowardCon(){
 		String send = "f";
 		com.writeMessage(send);
 		checkAcknowlege(send);
+		checkComplete();
 	}
 	public void fowardN(int n){
 		String send = "w";
@@ -102,27 +123,61 @@ public class Command {
 	
 	public void checkAcknowlege(String check){
 		String message = com.listenForMessage();
+		while(true){
+			System.out.println("message:"+message);
+			System.out.println("lastMessage:"+lastMessage);
+			if(isnewMessage(message)){
+				lastMessage = message;
+				break;
+			}
+			message = com.listenForMessage();
+		 }
+		
 		if(!message.equals(check)){
-			com.writeMessage("reset");
+			System.out.println("acknowlege error message:" + message);
+			reset();
 		}
 	}
 	
 	public void checkReady(){
 		String message = com.listenForMessage();
+		System.out.println("message:"+message);
+		System.out.println("lastMessage:"+lastMessage);
+		while(true){
+			if(isnewMessage(message)){
+				lastMessage = message;
+				break;
+			}
+			message = com.listenForMessage();
+		 }
 		if(!message.equals("?")){
-			com.writeMessage("reset");
+			System.out.println("ready error message:" + message);
+			reset();
 		}
 	}
 	
 	
 	public void checkComplete(){
 		String message = com.listenForMessage();
+		System.out.println("message:"+message);
+		System.out.println("lastMessage:"+lastMessage);
+		while(true){
+			if(isnewMessage(message)){
+				lastMessage = message;
+				break;
+			}
+			message = com.listenForMessage();
+		 }
 		if(!message.equals("!")){
-			com.writeMessage("reset");
+			System.out.println("complete error message:" + message);
+			reset();
 		}
 	}
 	public boolean isWallDetected(){
 		return wallDetect;
+	}
+	public void reset(){
+		com.reset();
 	}
 
 }

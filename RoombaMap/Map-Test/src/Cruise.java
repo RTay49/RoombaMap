@@ -22,7 +22,6 @@ public class Cruise {
 		System.out.println("Cruise plotting free spaces and moving forward");
 		
 		pl.plotFreeSpace();
-		act.forward();
 		if(wall){
 				pl.plotWallS(dir);
 				wallCruiseing();
@@ -53,8 +52,10 @@ public class Cruise {
 				start(true);
 				cruiseing = false;
 			}
-			bot.moveBot(dir);
-			pl.plotFreeSpace();
+			else if(wall == 'm'){
+				bot.moveBot(dir);
+				pl.plotFreeSpace();
+			}
 			cruiseing = isBeen();
 		}
 	}
@@ -65,7 +66,7 @@ public class Cruise {
 		boolean cruiseing = true;
 		
 		while(cruiseing){
-			
+			System.out.println("wallCruise");
 			char wall = act.cruise();
 			
 			if (wall == 'o'){
@@ -80,11 +81,14 @@ public class Cruise {
 				wall_L_Turn();
 				cruiseing = false;
 			}
+			else if(wall == 'k'){
+				bot.moveBot(dir);
+				pl.plotFreeSpace();
+				pl.plotWallS(dir);
+				pl.plotFreeSpace();
+			}
 			System.out.println("moving bot dir:" + dir +".");
-			bot.moveBot(dir);
 			System.out.println("plotting walls and free spaces");
-			pl.plotWallS(dir);
-			pl.plotFreeSpace();
 			cruiseing = isBeen();
 			
 		}

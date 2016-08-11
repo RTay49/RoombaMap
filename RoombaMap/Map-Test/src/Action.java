@@ -37,7 +37,7 @@ public class Action {
 	
 	public char cruise(){
 		
-		char result = cmd.listen();
+		char result = cmd.cruise();
 		return result;
 		
 	}

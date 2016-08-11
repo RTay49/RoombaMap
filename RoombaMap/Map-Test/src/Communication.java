@@ -2,16 +2,21 @@
 
 public class Communication {
 
+	private Serial serial;
 	
 	public Communication(){
-		
+		serial = new Serial();
+	}
+	
+	public void open(){
+		serial.open();
 	}
 	
 	public String listenForMessage(){
 		
-		SimpleRead sr = new SimpleRead();
-		sr.read();
-		String message = "" + sr.getR();
+		
+		
+		String message = "" + serial.read();
 		return message;
 		
 	}
@@ -20,11 +25,14 @@ public class Communication {
 	
 	
 	public void writeMessage(String message){
-		SimpleWrite sw = new SimpleWrite();
-		sw.write(message);
-		sw.write(".");
-		
-		
+		serial.write(message);
+	
+	}
+	
+	public void reset(){
+		serial.write("r");
+		serial.close();
+		System.out.println("Serial closed");
 	}
 	
 }
