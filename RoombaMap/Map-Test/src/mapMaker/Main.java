@@ -1,7 +1,10 @@
 package mapMaker;
-import java.io.IOException;
-import java.util.Scanner;
-
+/**
+ * The main method that will set up the Robot and then 
+ * output a map of what it finds
+ * @author Richard Taylor
+ *
+ */
 public class Main {
 
 	

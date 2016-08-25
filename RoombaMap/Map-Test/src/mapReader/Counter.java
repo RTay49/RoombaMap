@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapReader;
 
 /**
  * A class taken from the Fox's and rabbits simulation this software was

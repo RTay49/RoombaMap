@@ -1,7 +1,13 @@
 package mapReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
+/**
+ * The main class will ask you to enter a file location for a .txt file
+ * with coordinates.
+ * if correct it should create a map based on those coordinates.
+ * @author Richard Taylor
+ *
+ */
 
 public class Main {
 	
@@ -16,10 +22,10 @@ public class Main {
 		try {
 			fr.read();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("File read error, please ensure file path is correct");
 			e.printStackTrace();
 		}
-		Display d = new Display(fr.getWalls(),fr.getFSs());
+		new Display(fr.getWalls(),fr.getFSs());
 
 	}
 

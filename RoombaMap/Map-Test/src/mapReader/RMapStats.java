@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapReader;
 import java.awt.Color;
 import java.util.HashMap;
 

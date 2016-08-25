@@ -6,6 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ *  A class taken from the Fox's and rabbits simulation this software was
+ * converted from this class will create the viewable map.
+ * 
  * A graphical view of the simulation grid.
  * The view displays a colored rectangle for each location 
  * representing its contents. It uses a default background color.
@@ -13,7 +16,6 @@ import java.util.Map;
  * setColor method.
  * 
  * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
  */
 public class SimulatorView extends JFrame
 {
@@ -28,9 +30,9 @@ public class SimulatorView extends JFrame
     private JLabel stepLabel, population;
     private FieldView fieldView;
     
-    // A map for storing colors for participants in the simulation
+   
     private Map<Class, Color> colors;
-    // A statistics object computing and storing simulation information
+
     private RMapStats stats;
 
     /**
@@ -60,9 +62,7 @@ public class SimulatorView extends JFrame
     }
     
     /**
-     * Define a color to be used for a given class of animal.
-     * @param animalClass The animal's Class object.
-     * @param color The color to be used for the given class.
+     * Define a colour to be used.
      */
     public void setColor(Class locationClass, Color color)
     {
@@ -70,13 +70,13 @@ public class SimulatorView extends JFrame
     }
 
     /**
-     * @return The color to be used for a given class of animal.
+     * @return The colour to be used for a given class.
      */
     private Color getColor(Class locationClass)
     {
         Color col = colors.get(locationClass);
         if(col == null) {
-            // no color defined for this class
+            // no colour defined for this class
             return UNKNOWN_COLOR;
         }
         else {
@@ -85,9 +85,9 @@ public class SimulatorView extends JFrame
     }
 
     /**
-     * Show the current status of the field.
+     * Show the current status of the map.
      * @param step Which iteration step it is.
-     * @param field The field whose status is to be displayed.
+     * @param map The field whose status is to be displayed.
      */
     public void showStatus(int step, RMap rMap)
     {
@@ -121,22 +121,13 @@ public class SimulatorView extends JFrame
         fieldView.repaint();
     }
 
+
     /**
-     * Determine whether the simulation should continue to run.
-     * @return true If there is more than one species alive.
-     */
-    public boolean isViable(RMap rMap)
-    {
-        return stats.isViable(rMap);
-    }
-    
-    /**
-     * Provide a graphical view of a rectangular field. This is 
+     * 
+     * Provide a graphical view of a rectangular map. This is 
      * a nested class (a class defined inside a class) which
      * defines a custom component for the user interface. This
-     * component displays the field.
-     * This is rather advanced GUI stuff - you can ignore this 
-     * for your project if you like.
+     * component displays the map.
      */
     private class FieldView extends JPanel
     {

@@ -3,6 +3,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.BufferedReader;
+/**
+ * 
+ * A class that reads the coordinates from a text file
+ * and stores them as lists.
+ * Some help from
+ * http://www.homeandlearn.co.uk/java/read_a_textfile_in_java.html
+ * 
+ * @author Richard Taylor
+ *
+ */
+
 public class FileRead {
 
 	private String line;

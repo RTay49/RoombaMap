@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapReader;
 
 /**
  * A utilites class that converts coordinates/rows & columns and directions/locations 

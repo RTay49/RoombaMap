@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapReader;
 import java.util.LinkedList;
 import java.util.List;
 

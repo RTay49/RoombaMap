@@ -2,6 +2,12 @@ package mapReader;
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * A class used to display a map with inputed Coordinates.
+ * @author Richard Taylor
+ *
+ */
+
 public class Display {
 	
 	private ArrayList<String> walls;

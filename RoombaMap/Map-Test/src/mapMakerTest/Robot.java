@@ -1,11 +1,16 @@
 package mapMakerTest;
-
+/**
+ * A class that keeps track of the Robot.
+ * 
+ * @author Richard Taylor
+ *
+ */
 
 public class Robot {
 	
 	private RMap rMap;
 	
-	private int dir;//0 = up, 1 = right, 2 = down , 3 = left.
+	private int dir;
 	
 	private Location location;
 	 
@@ -45,9 +50,6 @@ public class Robot {
 	
 	public RMap getrMap() {
 		return rMap;
-	}
-	public void setrMap(RMap rMap) {
-		this.rMap = rMap;
 	}
 	public Location getLocation() {
 		return location;

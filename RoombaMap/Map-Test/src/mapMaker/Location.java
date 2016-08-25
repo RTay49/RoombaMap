@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapMaker;
 /**
  * A class taken from the Fox's and rabbits simulation this software was
  * converted from this class to use Cartesian coordinates instead of rows and

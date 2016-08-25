@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapMaker;
 /**
  * A class that handles detecting walls once a direction has been set.
  * The robot will cruise in a direction and report the presence of any walls of no

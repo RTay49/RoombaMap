@@ -1,16 +1,18 @@
 package mapMakerTest;
 
-import java.nio.charset.StandardCharsets;
-
 import jssc.SerialPort; 
 import jssc.SerialPortException;
-
+/**
+ * The class that will handle serial communcations
+ * @author Richard Taylor
+ *
+ */
 public class Serial {
 	private char r;
 	private SerialPort serialPort;
 	
 	public Serial(){
-		serialPort = new SerialPort("/dev/tty.usbmodem1423");
+		serialPort = new SerialPort("/dev/tty.usbmodem1423");//write the serial port location here
 	}
 	public void open(){
 		try {
@@ -33,7 +35,7 @@ public class Serial {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return '\0';
-		}//Write data to port
+		}
 	}
 	
 	

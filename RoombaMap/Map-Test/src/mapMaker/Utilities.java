@@ -1,7 +1,7 @@
-package mapMakerTest;
+package mapMaker;
 
 /**
- * A utilites class that converts coordinates/rows & columns and directions/locations 
+ * A utilities class that converts coordinates/rows & columns and directions/locations 
  * @author Richard Taylor
  *
  */

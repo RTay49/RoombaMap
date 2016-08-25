@@ -3,18 +3,21 @@ package mapMaker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Simulates the map for the Robot by keeping track of its position
+ * and places.
+ * @author Richard Taylor
+ *
+ */
+
 public class BotSimulator {
 	
-	private int width;
-	private int depth;
 	private RMap rMap;
 	private Robot bot;
 	private List<Wall> walls;
 	private List<FreeSpace> freeSpaces;
 	
 	public BotSimulator(int depth, int width){
-		this.width = width;
-		this.depth = depth;
 		rMap = new RMap(depth,width);
 		bot = new Robot(rMap, new Location(0, 0));
 		freeSpaces = new ArrayList<FreeSpace>();

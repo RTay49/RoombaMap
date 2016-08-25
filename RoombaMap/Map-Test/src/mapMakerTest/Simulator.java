@@ -1,50 +1,37 @@
 package mapMakerTest;
-import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.awt.Color;
 
 /**
- * A simple predator-prey simulator, based on a rectangular field
- * containing rabbits and foxes.
+ * A class taken from the Fox's and rabbits simulation this software was
+ * converted from this class will set up a simulated map.
  * 
+ * Original by
  * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
+ * Converted by 
+ * 	Richard Taylor
  */
 public class Simulator
 {
-    // Constants representing configuration information for the simulation.
-    // The default width for the grid.
-    private final int DEFAULT_WIDTH = 175;
-    // The default depth of the grid.
-    private final int DEFAULT_DEPTH = 135;
     
-
+    private final int DEFAULT_WIDTH = 101;
+   
+    private final int DEFAULT_DEPTH = 101;
     
-    private int width;
-    private int depth;
-    // List of places on the map.
+   
     private List<Wall> walls;
     private List<FreeSpace> freeSpaces;
-    // The current state of the map.
+    
     private RMap rMap;
-    // The current step of the simulation.
-    private int step;
-    // A graphical view of the simulation.
+   
+    private int step;//how many places the robot has been.
+    
     private SimulatorView view;
     private Robot bot;
 
     
-    /**
-     * Construct a simulation field with default size.
-     */
-    
-    /**
-     * Create a simulation field with the given size.
-     * @param depth Depth of the field. Must be greater than zero.
-     * @param width Width of the field. Must be greater than zero.
-     */
+
     public Simulator(int depth, int width)
     {
         if(width <= 0 || depth <= 0) {
@@ -66,15 +53,15 @@ public class Simulator
         bot = new Robot(rMap, new Location(0, 0));
         
         
-        // Create a view of the state of each location in the field.
+        
         view = new SimulatorView(depth, width);
         view.setColor(FreeSpace.class, Color.GREEN);
         view.setColor(Wall.class, Color.RED);
         view.setColor(Robot.class, Color.BLUE);
         
-        // Setup a valid starting point.
+    
         reset();
-       //populate();
+     
         view.showStatus(step, rMap);
     }
     
@@ -86,9 +73,6 @@ public class Simulator
         step = 0;
         walls.clear();
         freeSpaces.clear();
-        //populate();
-        
-        // Show the starting state in the view.
         view.showStatus(step, rMap);
     }
     
@@ -135,24 +119,12 @@ public class Simulator
 		return rMap;
 	}
 
-	public void setrMap(RMap rMap) {
-		this.rMap = rMap;
-	}
-
 	public int getStep() {
 		return step;
 	}
 
-	public void setStep(int step) {
-		this.step = step;
-	}
-
 	public SimulatorView getView() {
 		return view;
-	}
-
-	public void setView(SimulatorView view) {
-		this.view = view;
 	}
 
 	public int getDefaultWidth() {

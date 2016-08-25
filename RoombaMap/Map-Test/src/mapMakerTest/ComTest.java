@@ -1,6 +1,14 @@
 package mapMakerTest;
 import java.util.Scanner;
 
+
+/**
+ * a class used in place of the Communication class if
+ * you want to simulate the robot by manually typing in 
+ * the messages yourself
+ * @author Richard Taylor
+ */
+
 public class ComTest {
 
 	private Scanner sc;

@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapMaker;
 /**
  * A class used to plot objects on the map
  * @author Richard Taylor
@@ -6,7 +6,7 @@ package mapMakerTest;
  */
 public class Plot {
 	
-	private Simulator sim;
+	private BotSimulator sim;
 	private Robot bot;
 	
 	private Location botLocation;
@@ -16,7 +16,7 @@ public class Plot {
 	
 
 	
-	public Plot (Simulator sim){
+	public Plot (BotSimulator sim){
 		this.sim = sim;
 		
 		bot = sim.getBot();
@@ -31,7 +31,6 @@ public class Plot {
 	public void plotWall(int dir){
 		Location location = Utilities.convertToLoc(dir,botXCord,botYCord);
 		sim.addWall(location);
-		sim.update();
 	}
 	
 	/*
@@ -48,7 +47,6 @@ public class Plot {
 		Location location = Utilities.convertToLoc(dir-2,botXCord,botYCord);
 		sim.addWall(location);
 		System.out.println("Wall plotted at:" + location.getXCord() + "," + location.getYCord() );
-		sim.update();
 		
 	}
 	
@@ -63,7 +61,7 @@ public class Plot {
 		Location location = Utilities.convertToLoc(dir-1,botXCord,botYCord);
 		sim.addWall(location);
 		System.out.println("Wall plotted at:" + location.getXCord() + "," + location.getYCord() );
-		sim.update();
+		
 		
 	}
 	
@@ -72,7 +70,7 @@ public class Plot {
 		updateBotCord();	
 		sim.addFreeSpace(botLocation);
 		System.out.println("Freespace plotted at:" + botLocation.getXCord() + "," + botLocation.getYCord() );
-		sim.update();
+		
 	}
 		
 

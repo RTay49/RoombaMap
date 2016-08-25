@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapReader;
 
 /**
  * an object that represents a place on the map with no walls

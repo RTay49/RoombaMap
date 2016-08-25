@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapMaker;
 import java.util.List;
 /**
  * This class handles actions given to the robot will take.

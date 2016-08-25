@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapMaker;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -20,12 +20,12 @@ public class Command {
 	private String lastMessage;
 	
 	
-	private ComTest com;//this can be changed to Communication class for use with the Robot
+	private Communication com;
 	
 	private boolean wallDetect;
 	
 	public Command(){
-		com = new ComTest();//this can be changed to Communication class for use with the Robot
+		com = new Communication();
 		wallDetect = false;
 		com.open();
 		System.out.println("serial opened");

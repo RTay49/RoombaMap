@@ -1,9 +1,9 @@
-package mapMakerTest;
+package mapMaker;
 
 /**
  * sets up the serial and is used to send and receive char messages 
  * as well as closing the serial port.
- *  @author Richard Taylor
+ *   @author Richard Taylor
  */
 public class Communication {
 

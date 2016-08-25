@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapMaker;
 /**
  * An Abstract class for places on the map
  * Many elements taken from the Animals class in the Fox's and Robbits program.

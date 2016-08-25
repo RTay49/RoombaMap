@@ -1,4 +1,4 @@
-package mapMakerTest;
+package mapMaker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +11,7 @@ public class SetUp {
 	
 	
 	
-	private Simulator sim;
+	private BotSimulator sim;
 	
 	private Robot bot;
 	
@@ -32,7 +32,7 @@ public class SetUp {
 	public SetUp(){
 	
 		
-		sim =  new Simulator(101,101);
+		sim =  new BotSimulator(101,101);
 		
 		this.bot = sim.getBot();
 		
@@ -115,7 +115,7 @@ public class SetUp {
 
 
 
-	public Simulator getSim(){
+	public BotSimulator getSim(){
 		return sim;
 	}
 

@@ -1,28 +1,31 @@
 package mapMaker;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
+
 
 /**
- * Represent a rectangular grid of field positions.
- * Each position is able to store a single animal.
+ * A class taken from the Fox's and rabbits simulation this software was
+ * converted to store the map.
  * 
+ * Represent a rectangular grid of field positions.
+ * Each position is able to store a single place.
+ * 
+ * Original
  * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
+ * Converted by
+ * 	Richard Taylor
  */
 public class RMap
 {
  
     
-    // The depth and width of the field.
+    // The depth and width of the map.
     private int depth, width;
-    // Storage for the animals.
+    // Storage for the places.
     private Object[][] rMap;
 
     /**
-     * Represent a field of the given dimensions.
+     * Represent a map of the given dimensions.
      * @param depth The depth of the field.
      * @param width The width of the field.
      */
@@ -34,7 +37,7 @@ public class RMap
     }
     
     /**
-     * Empty the field.
+     * Empty the map.
      */
     public void clear()
     {
@@ -72,31 +75,31 @@ public class RMap
         assert location != null : "Null location passed to adjacentLocations";
         // The list of locations to be returned.
         
-        int X = location.getXCord();
-        int Y = location.getYCord();
+        //int X = location.getXCord();
+        //int Y = location.getYCord();
         
-        int lc = location.getCol();
-        int lr = location.getRow();
+       // int lc = location.getCol();
+        //int lr = location.getRow();
         
         List<Location> locations = new LinkedList<Location>();
         if(location != null) {
-        	System.out.println("location not null");
-        	System.out.println("finding locations for: " + X + "(" + lc + ") and  " + Y + "(" + lr + ").");
+        	//System.out.println("location not null");
+        	//System.out.println("finding locations for: " + X + "(" + lc + ") and  " + Y + "(" + lr + ").");
             int row = location.getRow();
-            System.out.println("location row:" + row);
+            //System.out.println("location row:" + row);
             int col = location.getCol();
-            System.out.println("location col:" + col);
+            //System.out.println("location col:" + col);
             for(int roffset = -1; roffset <= 1; roffset++) {
                 int nextRow = row + roffset;
-                System.out.println("next row:" + nextRow);
+                //System.out.println("next row:" + nextRow);
                 if(nextRow >= 0 && nextRow < depth) {
                     for(int coffset = -1; coffset <= 1; coffset++) {
                         int nextCol = col + coffset;
-                        System.out.println("next col:" + nextCol);
+                        //System.out.println("next col:" + nextCol);
                         // Exclude invalid locations and the original location.
                         if(nextCol >= 0 && nextCol < width && (roffset != 0 || coffset != 0)) {
                         	Location newloc =  new Location(Utilities.ConvertCoordCol(nextCol), Utilities.ConvertCoordRow(nextRow));
-                        	System.out.println("Rmap new location added: " + newloc.getXCord() + "(" + newloc.getCol() + "), " + newloc.getYCord() + "(" + newloc.getRow() + ").") ;
+                        	//System.out.println("Rmap new location added: " + newloc.getXCord() + "(" + newloc.getCol() + "), " + newloc.getYCord() + "(" + newloc.getRow() + ").") ;
                         	locations.add(newloc);
                         }
                     }
