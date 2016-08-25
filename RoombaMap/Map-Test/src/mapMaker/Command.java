@@ -126,6 +126,7 @@ public class Command {
 	 * A Command that will order the robot to spin around to detect 
 	 * walls with its front sensor any walls detected will be return in a list
 	 * of ints representing there direction
+	 * NOTE: make sure the robot is at dir 0 before a scan.
 	 */
 	public List<Integer> scan(){
 		String send = "p";

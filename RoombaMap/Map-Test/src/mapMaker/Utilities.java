@@ -87,7 +87,6 @@ package mapMaker;
 				return null;
 		}
 		public static int convertToDir(Location bot, Location location){
-			
 			int dir = 8;//impossible value
 			
 			int x = location.getXCord() - bot.getXCord();
